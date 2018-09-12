@@ -1,0 +1,120 @@
+*** Assignment 4, Space invaders ***
+
+We're going to do a version of the classical game Space invaders
+See https://www.youtube.com/watch?v=axlx3o0codc
+
+To run the program, run the SpaceInvGUI file (later ... need to implement things first).
+
+Paper and pen
+--------------
+This application is to complex to have in your head.
+Use paper and pen to sketch anything that can help to grasp it.
+
+Directory layout
+----------------
+The application is divided over a few directories (to put related classes etc. in same location)
+
+    - /assets: Images and sounds.
+    - /src/spaceinv/
+        - event/, Classes to handle events sent from model to GUI.
+        - model/: Classes for the data and logic of the game, the OO-model
+            - levels: Classes for configuration of levels (number/kind of ships, etc)
+              Must hard code levels for now, see SpaceInvGUI method newGame()
+            - projectiles: Projectiles fired by gun and spaceships
+            - ships: The space ships
+            - statics: Non movable objects, like ground.
+        - view/: Visible parts (graphical user interface, GUI), sound, event handling from GUI to
+          model and asset handling.
+
+Object model
+------------
+- The object model is handled by the class SpaceInv representing the over all game.
+  Class contains the main "game loop".
+- SpaceInv have references to ships, projectiles, the gun, etc.
+- Ground and OuterSpace are used as collision detectors for bombs/projectiles. If hit
+  ground/outerSpace the bomb/projectile will be destroyed.
+- SpaceInv also holds a number of "administrative" variables, player points etc.
+
+Interfaces
+----------
+- IPositionable, Any object that may be rendered to screen must implement this (used by GUI)
+
+GUI
+---
+All graphics and event code is in SpaceInvGUI file (also calls to animations and sound).
+Most of it (if not all) should be implemented, no graphics coding needed (possible some tweaking
+of sounds, images)
+
+Inspect class Assets to see the mapping of classes/objects to images (*.png) and
+sounds.
+
+Functional requirements
+-----------------------
+Program should work similar to the YouTube sample. Some points:
+
+- There should be a formation of ships moving *similar* to the YouTube clip
+- The ships should increase the speed.
+- The ships should drop bombs randomly.
+- There should be a movable gun which can fire a projectile (only one projectile
+  active at the time)
+- If projectile hit ship or bomb both will be destroyed.
+- Ships and bombs don't collide
+- Game points for player should be displayed. All ships earn different points.
+- There is no requirement for shelters (add if you like)
+- No need for "lives", if cannon hit by ship projectile or ship hits ground game is over
+  (or you decide the rules)
+
+Non-functional requirements
+---------------------------
+Program should have a very good OO-structure
+- No arrays, use lists!
+- No code duplication.
+- No protected, only private!
+- Objects should be handled at highest possible abstraction level
+- Any composed object should be initialized by the constructor
+
+Timing
+------
+JavFX works at a certain frame rate (about 60 frames/sec.), we can't change this.
+- If things should move faster/slower, in/decrease the objects speed and use
+  the JavaFX time stamp, see parameter to method update() in SpaceInv.
+- Or if things should move slower make them move more seldom.
+- This probably has to be adjusted when application is possible to run
+
+Workflow
+--------
+1. Inspect code. Do sketches or whatever to grasp the construction.
+
+2. Make Level0 compile, i.e. implement classes needed. If classes have common data use abstract base classes.
+   Sketch a possible hierarchy. No redundant code in classes.
+   Also need correct implementations of setX, getX, getWidth, setMoveInterval in AbstractSpaceShip.
+   Add different constructor as you go, one base constructor (possible calling super), and other constructors
+   using default values and calling the base constructor (i.e. fewer arguments for constructor)
+
+   TIP: Use upper left corner as position. Will simplify.
+   TIP: Use dx, dy for speed. When dx = dy = 0 object is idle.
+   NOTE: Anything you intend to draw on screen must implement interface IPositionable
+   NOTE: y-axis is pointing down!
+
+   Possible create test for classes in
+
+3. Create the model in SpaceInvaderGUI newGame(). Add a constructor to SpaceInvader taking an ILevel.
+
+4. Implement SpaceInv methods that supply the GUI with data. Try to get a ship on screen.
+
+4. Create another level (leave Level0 as a fallback). Work with ShipFormation, more ships
+   and GUI to get a moving formation. This is a major task. Who should move the ships?
+
+5. Add a gun and make it move.
+
+6. Implement class Rocket and let Gun fire a rocket when spacebar pressed. Add collision detection.
+   By informing the GUI, using the EventServi, it's possible for the GUI to render an explosion
+   at the point of collision.
+
+7. Refine, review etc. until everything is working.
+
+
+
+
+
+
