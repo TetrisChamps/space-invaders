@@ -1,5 +1,7 @@
 package spaceinv.model.ships;
 
+import spaceinv.model.IPositionable;
+
 import java.util.Random;
 
 
@@ -9,7 +11,7 @@ import java.util.Random;
  * Base class for all ships
  */
 
-public abstract class AbstractSpaceShip  {
+public abstract class AbstractSpaceShip implements IPositionable {
 
     public static final double SHIP_WIDTH = 40;
     public static final double SHIP_HEIGHT = 30;
@@ -21,7 +23,8 @@ public abstract class AbstractSpaceShip  {
     private double minX;  // min and max for ship to move i x-dir
     private double maxX;
 
-
+    private double x;
+    private double y;
 
     // To be overridden
     public abstract int getPoints();
@@ -29,19 +32,36 @@ public abstract class AbstractSpaceShip  {
     // To be overridden
     public abstract Object copyOf();
 
-    public double getX() {
-        return 0 ; // TODO
-    }
-    public void setX(double x) {
-         // TODO
-    }
-
-    public double getWidth() {
-        return 0;   // TODO
-    }
-
     // For ships moving back and forth
     public void setMoveInterval(double minX, double maxX){
         // TODO
+    }
+
+    @Override
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    @Override
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+    this.y = y;
+    }
+
+    @Override
+    public double getWidth() {
+        return SHIP_WIDTH;
+    }
+
+    @Override
+    public double getHeight() {
+        return SHIP_HEIGHT;
     }
 }

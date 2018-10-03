@@ -13,11 +13,11 @@ public class Gun implements IPositionable {
 
     public static final double MAX_SPEED = 2;
 
-    private int x;
-    private int y;
-    private int size;
+    private double x;
+    private double y;
+    private double size;
 
-    public Gun(int x, int y, int size) {
+    public Gun(double x, double y, double size) {
         this.x = x;
         this.y = y;
         this.size = size;
