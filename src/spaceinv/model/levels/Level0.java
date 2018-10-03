@@ -21,7 +21,7 @@ public class Level0 implements ILevel {
 
     private final List<AbstractSpaceShip> ships =
             addAll(
-                    distribute(asList(null, 4), 5)
+                    distribute(asList(new BattleCruiser(), 4), 5)
             );
             // TODO replace null above with some ship
 
@@ -39,7 +39,8 @@ public class Level0 implements ILevel {
 
     @Override
     public Gun getGun() {
-        return null; // TODO new Gun(0, 0, 0); // Dummy for testing usage
+        // TODO new Gun(0, 0, 0); // Dummy for testing usage
+        return new Gun();
     }
 
     @Override

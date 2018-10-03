@@ -89,6 +89,7 @@ public class SpaceInv {
     public List<IPositionable> getPositionables() {
         List<IPositionable> ps = new ArrayList<>();
        // TODO Add all to be rendered
+        ps.add(this.gun);
         if (rocket != null) {
             // TODO posables.add(rocket);
         }
