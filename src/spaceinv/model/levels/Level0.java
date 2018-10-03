@@ -33,7 +33,8 @@ public class Level0 implements ILevel {
 
     @Override
     public Ground getGround() {
-        return null; // TODO new Ground(0); // Dummy for testing usage
+        // TODO new Ground(0); // Dummy for testing usage
+        return new Ground();
     }
 
     @Override
