@@ -27,7 +27,8 @@ public class Level0 implements ILevel {
 
     @Override
     public OuterSpace getOuterSpace() {
-        return null; // TODO new OuterSpace(0); // Dummy for testing usage
+        // TODO new OuterSpace(0); // Dummy for testing usage
+        return new OuterSpace();
     }
 
     @Override
