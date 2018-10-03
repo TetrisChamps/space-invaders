@@ -12,8 +12,8 @@ import static spaceinv.model.SpaceInv.GAME_WIDTH;
  */
 public class ShipFormation {
 
-    private final double PADDING_LEFT = 100;
-    private final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
+    public static final double PADDING_LEFT = 100;
+    public static final double PADDING_RIGHT = GAME_WIDTH - PADDING_LEFT;
 
     private static final Random rand = new Random();
     private final List<AbstractSpaceShip> ships;
