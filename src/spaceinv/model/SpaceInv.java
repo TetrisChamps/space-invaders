@@ -35,22 +35,25 @@ public class SpaceInv {
     // TODO
     //private final List<AbstractSpaceShip> ships;
 
-    // TODO
-    /*private final Ground ground;           // Border for bombs
+    private final Ground ground;           // Border for bombs
     private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
     private final ShipFormation formation;
-    */
 
     private Rocket rocket;
     private int points;
-
-
 
     // Timing. All timing handled here!
     private long timeForLastMove;
     private long timeForlastFire;
     private long shipMoveDelay = TENTH_SEC;
+
+    public SpaceInv(ILevel level) {
+        this.ground = level.getGround();
+        this.outerSpace = level.getOuterSpace();
+        this.gun = level.getGun();
+        this.formation = level.getFormation();
+    }
 
     // ------ Game loop (called by timer) -----------------
 

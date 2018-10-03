@@ -18,6 +18,7 @@ import spaceinv.event.Event;
 import spaceinv.event.EventService;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
+import spaceinv.model.levels.Level0;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
@@ -99,7 +100,7 @@ public class SpaceInvGUI extends Application {
 
     private void newGame() {
 
-        //spaceInv = // TODO Create the OO model by using a Level parameter
+        spaceInv = new SpaceInv(new Level0()); // TODO Create the OO model by using a Level parameter
 
         renderBackground();
         timer.start();
