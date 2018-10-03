@@ -15,8 +15,14 @@ public class Gun implements IPositionable {
 
     private int x;
     private int y;
-    private int width;
-    private int height;
+    private int size;
+
+    public Gun(int x, int y, int size) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+    }
+
     @Override
     public double getX() {
         return x;
@@ -29,11 +35,11 @@ public class Gun implements IPositionable {
 
     @Override
     public double getWidth() {
-        return width;
+        return size;
     }
 
     @Override
     public double getHeight() {
-        return height;
+        return size;
     }
 }

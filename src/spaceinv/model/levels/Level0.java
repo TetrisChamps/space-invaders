@@ -3,6 +3,7 @@ package spaceinv.model.levels;
 
 
 import spaceinv.model.Gun;
+import spaceinv.model.SpaceInv;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.BattleCruiser;
 import spaceinv.model.ships.ShipFormation;
@@ -40,7 +41,7 @@ public class Level0 implements ILevel {
     @Override
     public Gun getGun() {
         // TODO new Gun(0, 0, 0); // Dummy for testing usage
-        return new Gun();
+        return new Gun((int)(SpaceInv.GAME_WIDTH - 50) / 2, (int)SpaceInv.GAME_HEIGHT - 50, 50);
     }
 
     @Override
