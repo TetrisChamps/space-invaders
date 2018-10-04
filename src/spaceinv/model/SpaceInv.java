@@ -10,7 +10,6 @@ import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static spaceinv.model.Gun.MAX_SPEED;
@@ -41,8 +40,7 @@ public class SpaceInv {
     private final Gun gun;
     private final ShipFormation formation;
 
-    List<Rocket> smurfs = new LinkedList<>();
-   // private Rocket rocket;
+    private Rocket rocket;
     private int points;
 
     // Timing. All timing handled here!
@@ -60,16 +58,12 @@ public class SpaceInv {
     // ------ Game loop (called by timer) -----------------
     private long lastUpdate = 0;
     public void update(long now) {
-        for(Rocket smurf : smurfs){
-            smurf.move();
-        }
-       /* if(rocket != null){
+        if(rocket != null){
             rocket.move();
             if(rocket.isOutside()){
                 rocket = null;
             }
         }
-        */
     }
 
     // ------------- Increase pressure on player
@@ -79,11 +73,9 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-        smurfs.add(gun.shootGun());
-        /*if(rocket == null){
+        if(rocket == null){
             rocket = gun.shootGun();
         }
-        */
     }
 
     public void moveGunLeft() {
@@ -124,14 +116,10 @@ public class SpaceInv {
             ps.add(ship);
         }
 
-        for(Rocket smurf : smurfs) {
-            ps.add(smurf);
-        }
         ps.add(this.gun);
-
-      //  if (rocket != null) {
-       //     ps.add(rocket);
-       // }
+        if (rocket != null) {
+            ps.add(rocket);
+        }
         return ps;
     }
 
