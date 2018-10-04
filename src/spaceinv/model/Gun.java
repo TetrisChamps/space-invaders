@@ -16,12 +16,15 @@ public class Gun implements IPositionable {
     private double x;
     private double y;
     private double size;
+    private double moveSpeed;
 
-    public Gun(double x, double y, double size) {
+    public Gun(double x, double y, double size, double moveSpeed) {
         this.x = x;
         this.y = y;
         this.size = size;
+        this.moveSpeed = moveSpeed;
     }
+
 
     @Override
     public double getX() {
@@ -42,4 +45,8 @@ public class Gun implements IPositionable {
     public double getHeight() {
         return size;
     }
+
+    public double getMoveSpeed() { return moveSpeed; }
+
+    public void setX(double x) { this.x = x; }
 }

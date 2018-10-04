@@ -74,15 +74,31 @@ public class SpaceInv {
     }
 
     public void moveGunLeft() {
-        //gun.move(-1);
+        move( gun, -1, 0, gun.getMoveSpeed());
     }
 
     public void moveGunRight() {
-        // TODO
+        move(gun, +1, 0, gun.getMoveSpeed());
     }
 
     public void stopGun() {
        // TODO
+    }
+
+    //TODO move to absMovable
+    public void move(Gun ipos /* Should be AbsMovable */, int dirX, int dirY, double moveSpeed){
+        double movementX = ipos.getX() + moveSpeed * dirX;
+        double movementY = ipos.getY() + moveSpeed * dirY;
+        if(checkBoundaries(ipos, movementX, movementY)){
+            ipos.setX(movementX);
+            //ipos.setY(movementY); //TODO uncomment when absMovable is implemented.
+        }
+    }
+
+    public boolean checkBoundaries(IPositionable ipos, double X, double Y){
+
+        return  (X >= 0 && X <= (GAME_WIDTH - ipos.getWidth())) &&
+                (Y >= 0 && Y <= (GAME_HEIGHT - ipos.getHeight()));
     }
 
     // --------- Send everything to be rendered --------------

@@ -39,6 +39,7 @@ public class SpaceInvGUI extends Application {
 
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
+    private boolean showOSD = false;
 
     // ------- Keyboard handling ----------------------------------
 
@@ -49,13 +50,16 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
-                // TODO
+                spaceInv.moveGunLeft();
                 break;
             case RIGHT:
-                // TODO
+                spaceInv.moveGunRight();
                 break;
             case SPACE:
                 // TODO
+                break;
+            case F10:
+                showOSD = !showOSD;
                 break;
             default:  // Nothing
         }
@@ -144,6 +148,9 @@ public class SpaceInvGUI extends Application {
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
+        if(showOSD){
+
+        }
     }
 
     private void renderExplosion(double x, double y) {
