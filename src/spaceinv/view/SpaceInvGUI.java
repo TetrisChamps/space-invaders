@@ -191,7 +191,7 @@ public class SpaceInvGUI extends Application {
             }
         };
 
-        bg.drawImage(Assets.INSTANCE.background, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+        bg.drawImage(Assets.INSTANCE.splash, 0, 0, GAME_WIDTH, GAME_HEIGHT);
 
         Scene scene = new Scene(root);
         scene.setOnKeyPressed(this::keyPressed);

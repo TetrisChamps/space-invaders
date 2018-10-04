@@ -36,8 +36,8 @@ public enum Assets {
     public final Color colorFgText = Color.WHITE;
     public final int fontSize = 18;
 
-    public final Image background = getImage("background.png");
-    public final Image splash = getImage("splash.png");
+    public final Image background = getImage("spaceBackground.png");
+    public final Image splash = getImage("splash.jpg");
     public final Image explosion = getImage("explosion.png");
 
     // All classes bound here (objects must be bound else where, not done in this application)
