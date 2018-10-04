@@ -37,6 +37,7 @@ public enum Assets {
     public final int fontSize = 18;
 
     public final Image background = getImage("background.png");
+    public final Image splash = getImage("splash.png");
     public final Image explosion = getImage("explosion.png");
 
     // All classes bound here (objects must be bound else where, not done in this application)
@@ -46,7 +47,7 @@ public enum Assets {
         bind(Frigate.class, getImage("frigate.png"));
         bind(Bomb.class, getImage("bomb.png"));
         bind(Rocket.class, getImage("rocket.png"));
-        bind(Gun.class, getImage("gun.png"));
+        bind(Gun.class, getImage("cannon.png"));
         bind(Ground.class, getImage("ground.png"));
     }
 

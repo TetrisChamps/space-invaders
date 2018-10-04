@@ -56,10 +56,11 @@ public class SpaceInv {
     }
 
     // ------ Game loop (called by timer) -----------------
-
+    private long lastUpdate = 0;
     public void update(long now) {
         // TODO the game loop
-
+        System.out.println(ONE_SEC / (now - lastUpdate));
+        lastUpdate = now;
     }
 
     // ------------- Increase pressure on player
@@ -73,7 +74,7 @@ public class SpaceInv {
     }
 
     public void moveGunLeft() {
-        // TODO
+        //gun.move(-1);
     }
 
     public void moveGunRight() {

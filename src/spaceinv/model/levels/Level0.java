@@ -22,7 +22,7 @@ public class Level0 implements ILevel {
 
     private final List<AbstractSpaceShip> ships =
             addAll(
-                    distribute(asList(new BattleCruiser(), 4), 5)
+                    distribute(asList(new BattleCruiser(), 25), 5)
             );
             // TODO replace null above with some ship
 
