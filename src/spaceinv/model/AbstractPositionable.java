@@ -1,6 +1,5 @@
 package spaceinv.model;
-
-public class AbstractPositionable implements IPositionable {
+public abstract class AbstractPositionable implements IPositionable {
     private int x;
     private int y;
     private int width;
@@ -12,6 +11,8 @@ public class AbstractPositionable implements IPositionable {
         this.width = width;
         this.height = height;
     }
+
+
 
     @Override
     public double getX() {
@@ -31,5 +32,13 @@ public class AbstractPositionable implements IPositionable {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
