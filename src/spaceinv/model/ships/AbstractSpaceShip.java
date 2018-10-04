@@ -1,5 +1,6 @@
 package spaceinv.model.ships;
 
+import spaceinv.model.AbstractMovable;
 import spaceinv.model.IPositionable;
 
 import java.util.Random;
@@ -11,7 +12,12 @@ import java.util.Random;
  * Base class for all ships
  */
 
-public abstract class AbstractSpaceShip implements IPositionable {
+public abstract class AbstractSpaceShip extends AbstractMovable {
+
+
+    public AbstractSpaceShip(int x, int y, int width, int height) {
+        super(x, y, width, height);
+    }
 
     public static final double SHIP_WIDTH = 40;
     public static final double SHIP_HEIGHT = 30;
