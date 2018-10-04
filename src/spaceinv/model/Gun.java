@@ -3,50 +3,19 @@ package spaceinv.model;
 
 import spaceinv.model.projectiles.Rocket;
 
-import static spaceinv.model.SpaceInv.GAME_HEIGHT;
-import static spaceinv.model.SpaceInv.GAME_WIDTH;
-
 /*
  * A Gun for the SpaceInv game
  */
-public class Gun implements IPositionable {
+public class Gun extends AbstractMovable {
 
     public static final double MAX_SPEED = 2;
 
-    private double x;
-    private double y;
-    private double size;
-    private double moveSpeed;
-
-    public Gun(double x, double y, double size, double moveSpeed) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.moveSpeed = moveSpeed;
+    public Gun(double x, double y, double size, double movementSpeed) {
+        super(x, y, size, size, movementSpeed);
     }
 
 
-    @Override
-    public double getX() {
-        return x;
+    public Rocket shootGun() {
+        return new Rocket(getX() + (getWidth() - 10) / 2, getY(), 3);
     }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    @Override
-    public double getWidth() {
-        return size;
-    }
-
-    @Override
-    public double getHeight() {
-        return size;
-    }
-
-    public double getMoveSpeed() { return moveSpeed; }
-
-    public void setX(double x) { this.x = x; }
 }

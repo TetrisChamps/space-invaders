@@ -36,18 +36,18 @@ public enum Assets {
     public final Color colorFgText = Color.WHITE;
     public final int fontSize = 18;
 
-    public final Image background = getImage("spaceBackground.png");
-    public final Image splash = getImage("splash.jpg");
+    public final Image background = getImage("smurfBackground.png");
+    public final Image splash = getImage("smurfSplash.png");
     public final Image explosion = getImage("explosion.png");
 
     // All classes bound here (objects must be bound else where, not done in this application)
     {
-        bind(BattleCruiser.class, getImage("battlecruiser.png"));
+        bind(BattleCruiser.class, getImage("svartSmurf.png"));
         bind(Bomber.class, getImage("bomber.png"));
         bind(Frigate.class, getImage("frigate.png"));
         bind(Bomb.class, getImage("bomb.png"));
-        bind(Rocket.class, getImage("rocket.png"));
-        bind(Gun.class, getImage("cannon.png"));
+        bind(Rocket.class, getImage("missileSmurf.png"));
+        bind(Gun.class, getImage("papaSmurf.png"));
         bind(Ground.class, getImage("ground.png"));
     }
 

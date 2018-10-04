@@ -10,6 +10,7 @@ import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static spaceinv.model.Gun.MAX_SPEED;
@@ -40,7 +41,8 @@ public class SpaceInv {
     private final Gun gun;
     private final ShipFormation formation;
 
-    private Rocket rocket;
+    List<Rocket> smurfs = new LinkedList<>();
+   // private Rocket rocket;
     private int points;
 
     // Timing. All timing handled here!
@@ -58,7 +60,16 @@ public class SpaceInv {
     // ------ Game loop (called by timer) -----------------
     private long lastUpdate = 0;
     public void update(long now) {
-        // TODO the game loop
+        for(Rocket smurf : smurfs){
+            smurf.move();
+        }
+       /* if(rocket != null){
+            rocket.move();
+            if(rocket.isOutside()){
+                rocket = null;
+            }
+        }
+        */
     }
 
     // ------------- Increase pressure on player
@@ -68,15 +79,19 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-       // TODO
+        smurfs.add(gun.shootGun());
+        /*if(rocket == null){
+            rocket = gun.shootGun();
+        }
+        */
     }
 
     public void moveGunLeft() {
-        move( gun, -1, 0, gun.getMoveSpeed());
+        move(gun, -1, 0, gun.getMovementSpeed());
     }
 
     public void moveGunRight() {
-        move(gun, +1, 0, gun.getMoveSpeed());
+        move(gun, +1, 0, gun.getMovementSpeed());
     }
 
     public void stopGun() {
@@ -109,10 +124,14 @@ public class SpaceInv {
             ps.add(ship);
         }
 
-        ps.add(this.gun);
-        if (rocket != null) {
-            // TODO posables.add(rocket);
+        for(Rocket smurf : smurfs) {
+            ps.add(smurf);
         }
+        ps.add(this.gun);
+
+      //  if (rocket != null) {
+       //     ps.add(rocket);
+       // }
         return ps;
     }
 

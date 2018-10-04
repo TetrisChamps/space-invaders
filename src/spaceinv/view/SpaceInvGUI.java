@@ -57,7 +57,7 @@ public class SpaceInvGUI extends Application {
                 spaceInv.moveGunRight();
                 break;
             case SPACE:
-                // TODO
+                spaceInv.fireGun();
                 break;
             case F12:
                 showOSD = !showOSD;

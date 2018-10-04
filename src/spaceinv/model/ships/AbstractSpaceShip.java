@@ -1,7 +1,6 @@
 package spaceinv.model.ships;
 
 import spaceinv.model.AbstractMovable;
-import spaceinv.model.IPositionable;
 
 import java.util.Random;
 
@@ -13,12 +12,7 @@ import java.util.Random;
  */
 
 public abstract class AbstractSpaceShip extends AbstractMovable {
-
-
-    public AbstractSpaceShip(int x, int y, int width, int height) {
-        super(x, y, width, height);
-    }
-
+    
     public static final double SHIP_WIDTH = 40;
     public static final double SHIP_HEIGHT = 30;
     public static final double SHIPS_DX = 5;
@@ -31,6 +25,10 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
 
     private double x;
     private double y;
+
+    public AbstractSpaceShip(double x, double y, double width, double height, double movementSpeed) {
+        super(x, y, width, height, movementSpeed);
+    }
 
     // To be overridden
     public abstract int getPoints();
