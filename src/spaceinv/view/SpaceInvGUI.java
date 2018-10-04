@@ -22,6 +22,7 @@ import spaceinv.model.levels.Level0;
 
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
+import static spaceinv.model.SpaceInv.ONE_SEC;
 
 
 /*
@@ -58,7 +59,7 @@ public class SpaceInvGUI extends Application {
             case SPACE:
                 // TODO
                 break;
-            case F10:
+            case F12:
                 showOSD = !showOSD;
                 break;
             default:  // Nothing
@@ -138,8 +139,8 @@ public class SpaceInvGUI extends Application {
     }
 
     // ************* Rendering and JavaFX below (nothing to do)  *************
-
-    private void render() {
+    private long lastRender = 0;
+    private void render(long now) {
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         for (IPositionable d : spaceInv.getPositionables()) {
             Image i = Assets.INSTANCE.get(d.getClass());
@@ -149,8 +150,9 @@ public class SpaceInvGUI extends Application {
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
         if(showOSD){
-
+            fg.fillText("FPS: " + (ONE_SEC / (now - lastRender)), 700, 50);
         }
+        lastRender = now;
     }
 
     private void renderExplosion(double x, double y) {
@@ -189,7 +191,7 @@ public class SpaceInvGUI extends Application {
             @Override
             public void handle(long now) {
                 spaceInv.update(now);
-                render();
+                render(now);
                 Event e = EventService.remove();
                 if (e != null) {
                     SpaceInvGUI.this.handleModelEvent(e);

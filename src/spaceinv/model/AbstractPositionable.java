@@ -6,6 +6,12 @@ public class AbstractPositionable implements IPositionable {
     private int width;
     private int height;
 
+    public AbstractPositionable(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
     @Override
     public double getX() {

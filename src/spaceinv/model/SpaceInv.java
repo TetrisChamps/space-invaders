@@ -59,8 +59,6 @@ public class SpaceInv {
     private long lastUpdate = 0;
     public void update(long now) {
         // TODO the game loop
-        System.out.println(ONE_SEC / (now - lastUpdate));
-        lastUpdate = now;
     }
 
     // ------------- Increase pressure on player
