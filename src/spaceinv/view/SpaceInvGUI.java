@@ -20,6 +20,7 @@ import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.Level0;
 
+import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
 import static spaceinv.model.SpaceInv.ONE_SEC;
@@ -51,10 +52,10 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
-                spaceInv.moveGunLeft();
+                spaceInv.setGunMovingDirection(Direction.LEFT);
                 break;
             case RIGHT:
-                spaceInv.moveGunRight();
+                spaceInv.setGunMovingDirection(Direction.RIGHT);
                 break;
             case SPACE:
                 spaceInv.fireGun();
@@ -74,7 +75,7 @@ public class SpaceInvGUI extends Application {
         switch (kc) {
             case LEFT:
             case RIGHT:
-                // TODO
+                spaceInv.setGunMovingDirection(Direction.NONE);
                 break;
             default: // Nothing
         }
@@ -151,6 +152,7 @@ public class SpaceInvGUI extends Application {
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
         if(showOSD){
             fg.fillText("FPS: " + (ONE_SEC / (now - lastRender)), 700, 50);
+            fg.fillText("Version: " + "1.0", 700, 75);
         }
         lastRender = now;
     }

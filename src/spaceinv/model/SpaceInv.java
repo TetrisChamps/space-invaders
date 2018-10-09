@@ -12,6 +12,7 @@ import spaceinv.model.statics.OuterSpace;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javafx.application.Platform.exit;
 import static spaceinv.model.Gun.MAX_SPEED;
 
 /*
@@ -58,12 +59,19 @@ public class SpaceInv {
     // ------ Game loop (called by timer) -----------------
     private long lastUpdate = 0;
     public void update(long now) {
+        double deltaTime = 0;
+        if(lastUpdate != 0){
+            deltaTime = (double)(now - lastUpdate) / ONE_SEC;
+        }
+        lastUpdate = now;
         if(rocket != null){
             rocket.move();
             if(rocket.isOutside()){
                 rocket = null;
             }
         }
+        gun.move(deltaTime);
+        this.formation.move();
     }
 
     // ------------- Increase pressure on player
@@ -78,12 +86,8 @@ public class SpaceInv {
         }
     }
 
-    public void moveGunLeft() {
-        move(gun, -1, 0, gun.getMovementSpeed());
-    }
-
-    public void moveGunRight() {
-        move(gun, +1, 0, gun.getMovementSpeed());
+    public void setGunMovingDirection(AbstractMovable.Direction direction) {
+        this.gun.setMovingDirection(direction);
     }
 
     public void stopGun() {

@@ -3,28 +3,18 @@ package spaceinv.model;
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
 import static spaceinv.model.SpaceInv.GAME_WIDTH;
 
-public abstract class AbstractMovable extends AbstractPositionable{
+public abstract class AbstractMovable extends AbstractPositionable {
+
+    public enum Direction {
+        LEFT,
+        RIGHT,
+        DOWN,
+        UP,
+        NONE
+    }
+
     private double movementSpeed;
-    public AbstractMovable(double x, double y, double width, double height, double movementSpeed) {
-        super(x, y, width, height);
-        this.movementSpeed = movementSpeed;
-    }
-
-
-
-    public void move(int dirX, int dirY, double moveSpeed){
-        double movementX = this.getX() + moveSpeed * dirX;
-        double movementY = this.getY() + moveSpeed * dirY;
-        if(checkBoundaries(movementX, movementY)){
-            this.setX((int)movementX);
-            this.setY((int)movementY);
-        }
-    }
-
-    public boolean checkBoundaries(double X, double Y){
-        return  (X >= 0 && X <= (GAME_WIDTH - this.getWidth())) &&
-                (Y >= 0 && Y <= (GAME_HEIGHT - this.getHeight()));
-    }
+    private Direction movingDirection = Direction.NONE;
 
     public double getMovementSpeed() {
         return movementSpeed;
@@ -32,5 +22,50 @@ public abstract class AbstractMovable extends AbstractPositionable{
 
     public void setMovementSpeed(double movementSpeed) {
         this.movementSpeed = movementSpeed;
+    }
+
+    public AbstractMovable(double x, double y, double width, double height, double movementSpeed) {
+        super(x, y, width, height);
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void setMovingDirection(Direction direction) {
+        this.movingDirection = direction;
+    }
+
+    public void move(Direction direction, double deltaTime) {
+        double oldX = this.getX();
+        double oldY = this.getY();
+
+        switch (direction) {
+            case UP:
+                this.setY(this.getY() - this.movementSpeed * deltaTime);
+                break;
+            case RIGHT:
+                this.setX(this.getX() + this.movementSpeed * deltaTime);
+                break;
+            case DOWN:
+                this.setY(this.getY() + this.movementSpeed * deltaTime);
+                break;
+            case LEFT:
+                this.setX(this.getX() - this.movementSpeed * deltaTime);
+                break;
+            case NONE:
+                return;
+        }
+
+        if (!checkBoundaries()) {
+            this.setX(oldX);
+            this.setY(oldY);
+        }
+    }
+
+    public boolean checkBoundaries() {
+        return (this.getX() >= 0 && this.getX() <= (GAME_WIDTH - this.getWidth())) &&
+                (this.getY() >= 0 && this.getY() <= (GAME_HEIGHT - this.getHeight()));
+    }
+
+    public void move(double deltaTime) {
+        move(this.movingDirection, deltaTime);
     }
 }

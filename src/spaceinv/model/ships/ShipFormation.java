@@ -1,7 +1,6 @@
 package spaceinv.model.ships;
 
 
-
 import java.util.List;
 import java.util.Random;
 
@@ -19,18 +18,34 @@ public class ShipFormation {
     private final List<AbstractSpaceShip> ships;
     private int indexToMove;
 
+    public int destroyShip(){return 0;}
+    // TODO destroy a ship return a score
+
     public ShipFormation(List<AbstractSpaceShip> ships) {
         this.ships = ships;
         indexToMove = ships.size() - 1;
     }
 
+    // TODO move all ships on the x axis. If they cant move on x, move down and change direction.
+
     // TODO Some method to move the ships
+    public boolean move(double deltaTime) {
+        for (AbstractSpaceShip ship : ships) {
 
+        }
+        return false;
+    }
 
-    // TODO Some method to reove ship hit by rocket
+    // TODO Some method to remäve ship hit by rocket
 
-
-
+    private boolean isAnyShipOutOfBounds() {
+        for (AbstractSpaceShip ship : this.ships) {
+            if (!ship.checkBoundaries()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public int size() {
         return ships.size();
