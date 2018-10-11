@@ -1,6 +1,7 @@
 package spaceinv.model.ships;
 
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,21 +31,33 @@ public class ShipFormation {
 
     // TODO Some method to move the ships
     public boolean move(double deltaTime) {
+        int moveOffset = 40;
         for (AbstractSpaceShip ship : ships) {
-
+            ship.move(deltaTime);
         }
-        return false;
+        if(isAnyShipOutOfBounds()){
+            for(AbstractSpaceShip ship : ships){
+                ship.reverseHorizontalDirection();
+                ship.move(deltaTime);
+                ship.setY(ship.getY() + moveOffset);
+            }
+
+            //TODO: Sound event!
+            return !isAnyShipOutOfBounds();
+        }
+        return true;
     }
+
 
     // TODO Some method to remäve ship hit by rocket
 
     private boolean isAnyShipOutOfBounds() {
         for (AbstractSpaceShip ship : this.ships) {
             if (!ship.checkBoundaries()) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public int size() {

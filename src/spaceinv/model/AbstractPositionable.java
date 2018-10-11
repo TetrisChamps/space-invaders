@@ -1,4 +1,5 @@
 package spaceinv.model;
+
 public abstract class AbstractPositionable implements IPositionable {
     private double x;
     private double y;
@@ -11,8 +12,6 @@ public abstract class AbstractPositionable implements IPositionable {
         this.width = width;
         this.height = height;
     }
-
-
 
     @Override
     public double getX() {
@@ -32,6 +31,22 @@ public abstract class AbstractPositionable implements IPositionable {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public boolean intersects(IPositionable positionable) {
+        return !(this.x + this.width < positionable.getX() ||
+                this.x > positionable.getX() + positionable.getWidth() ||
+                this.y + this.height < positionable.getY() ||
+                this.y > positionable.getY() + positionable.getHeight());
+    }
+
+    @Override
+    public boolean contains(IPositionable positionable) {
+        return (this.x >= positionable.getX() &&
+                this.x + this.width <= positionable.getX() + positionable.getWidth() &&
+                this.y >= positionable.getY() &&
+                this.y + this.height <= positionable.getY() + positionable.getHeight());
     }
 
     public void setX(double x) {

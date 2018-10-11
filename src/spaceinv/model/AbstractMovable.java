@@ -29,6 +29,15 @@ public abstract class AbstractMovable extends AbstractPositionable {
         this.movementSpeed = movementSpeed;
     }
 
+    public void reverseHorizontalDirection(){
+        if(this.movingDirection == Direction.LEFT){
+            this.movingDirection = Direction.RIGHT;
+        }
+        else if(this.movingDirection == Direction.RIGHT){
+            this.movingDirection = Direction.LEFT;
+        }
+    }
+
     public void setMovingDirection(Direction direction) {
         this.movingDirection = direction;
     }
@@ -58,11 +67,6 @@ public abstract class AbstractMovable extends AbstractPositionable {
             this.setX(oldX);
             this.setY(oldY);
         }
-    }
-
-    public boolean checkBoundaries() {
-        return (this.getX() >= 0 && this.getX() <= (GAME_WIDTH - this.getWidth())) &&
-                (this.getY() >= 0 && this.getY() <= (GAME_HEIGHT - this.getHeight()));
     }
 
     public void move(double deltaTime) {
