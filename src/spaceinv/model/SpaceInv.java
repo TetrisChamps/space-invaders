@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static javafx.application.Platform.exit;
-import static spaceinv.model.Gun.MAX_SPEED;
 
 /*
  * Logic for the SpaceInv Game
@@ -33,11 +32,13 @@ public class SpaceInv {
     public static final long HALF_SEC = 500_000_000;
     public static final long TENTH_SEC = 100_000_000;
 
+    public static final Rect PLAY_AREA = new Rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
     // TODO
     //private final List<AbstractSpaceShip> ships;
 
     private final Ground ground;           // Border for bombs
-    private final OuterSpace outerSpace;   // Border for rocket
+    //private final OuterSpace outerSpace;   // Border for rocket
     private final Gun gun;
     private final ShipFormation formation;
 
@@ -51,7 +52,7 @@ public class SpaceInv {
 
     public SpaceInv(ILevel level) {
         this.ground = level.getGround();
-        this.outerSpace = level.getOuterSpace();
+        //this.outerSpace = level.getOuterSpace();
         this.gun = level.getGun();
         this.formation = level.getFormation();
     }
@@ -59,19 +60,18 @@ public class SpaceInv {
     // ------ Game loop (called by timer) -----------------
     private long lastUpdate = 0;
     public void update(long now) {
+        // Calculate time since last frame (seconds)
         double deltaTime = 0;
-        if(lastUpdate != 0){
-            deltaTime = (double)(now - lastUpdate) / ONE_SEC;
+        if(this.lastUpdate != 0){
+            deltaTime = (double)(now - this.lastUpdate) / ONE_SEC;
         }
-        lastUpdate = now;
-        if(rocket != null){
-            rocket.move();
-            if(rocket.isOutside()){
-                rocket = null;
-            }
+        this.lastUpdate = now;
+        // Update components
+        if(this.rocket != null){
+            this.rocket.update(deltaTime, this.formation);
         }
-        gun.move(deltaTime);
-        this.formation.move();
+        this.gun.update(deltaTime);
+        this.formation.update(deltaTime);
     }
 
     // ------------- Increase pressure on player

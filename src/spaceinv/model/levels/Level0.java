@@ -26,11 +26,11 @@ public class Level0 implements ILevel {
             );
             // TODO replace null above with some ship
 
-    @Override
-    public OuterSpace getOuterSpace() {
-        // TODO new OuterSpace(0); // Dummy for testing usage
-        return new OuterSpace();
-    }
+    //@Override
+    //public OuterSpace getOuterSpace() {
+    //    // TODO new OuterSpace(0); // Dummy for testing usage
+    //    return new OuterSpace();
+    //}
 
     @Override
     public Ground getGround() {

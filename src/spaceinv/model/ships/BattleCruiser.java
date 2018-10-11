@@ -8,7 +8,7 @@ public class BattleCruiser extends AbstractSpaceShip {
     private final int points = 10;
 
     public BattleCruiser() {
-        super(0, 0, 50, 50, 1);
+        super(0, 0, 50, 50, 20);
     }
 
 
@@ -20,5 +20,10 @@ public class BattleCruiser extends AbstractSpaceShip {
     @Override
     public Object copyOf() {
         return new BattleCruiser();
+    }
+
+    @Override
+    public void move(double deltaTime, Direction direction) {
+
     }
 }

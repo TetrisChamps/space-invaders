@@ -13,8 +13,4 @@ public interface IPositionable {
     double getWidth();
 
     double getHeight();
-
-    boolean intersects(IPositionable positionable);
-
-    boolean contains(IPositionable positionable);
 }

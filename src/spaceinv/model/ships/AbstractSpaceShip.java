@@ -28,6 +28,7 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
 
     public AbstractSpaceShip(double x, double y, double width, double height, double movementSpeed) {
         super(x, y, width, height, movementSpeed);
+        this.setMovingDirection(Direction.LEFT);
     }
 
     // To be overridden

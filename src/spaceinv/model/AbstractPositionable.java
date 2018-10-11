@@ -33,7 +33,6 @@ public abstract class AbstractPositionable implements IPositionable {
         return height;
     }
 
-    @Override
     public boolean intersects(IPositionable positionable) {
         return !(this.x + this.width < positionable.getX() ||
                 this.x > positionable.getX() + positionable.getWidth() ||
@@ -41,12 +40,11 @@ public abstract class AbstractPositionable implements IPositionable {
                 this.y > positionable.getY() + positionable.getHeight());
     }
 
-    @Override
     public boolean contains(IPositionable positionable) {
-        return (this.x >= positionable.getX() &&
-                this.x + this.width <= positionable.getX() + positionable.getWidth() &&
-                this.y >= positionable.getY() &&
-                this.y + this.height <= positionable.getY() + positionable.getHeight());
+        return (positionable.getX() >= this.x &&
+                positionable.getX() + positionable.getWidth() <= this.x + this.width &&
+                positionable.getY()>= this.y &&
+                positionable.getY() + positionable.getHeight() <= this.y + this.height);
     }
 
     public void setX(double x) {

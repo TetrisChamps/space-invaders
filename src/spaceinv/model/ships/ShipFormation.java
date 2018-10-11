@@ -1,7 +1,9 @@
 package spaceinv.model.ships;
 
 
-import java.util.LinkedList;
+import spaceinv.model.AbstractMovable.Direction;
+import spaceinv.model.SpaceInv;
+
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +21,9 @@ public class ShipFormation {
     private final List<AbstractSpaceShip> ships;
     private int indexToMove;
 
-    public int destroyShip(){return 0;}
+    public int destroyShip() {
+        return 0;
+    }
     // TODO destroy a ship return a score
 
     public ShipFormation(List<AbstractSpaceShip> ships) {
@@ -27,25 +31,45 @@ public class ShipFormation {
         indexToMove = ships.size() - 1;
     }
 
+    public void update(double deltaTime) {
+        int verticalOffset = 20;
+        this.move(deltaTime);
+        if (isAnyShipOutOfBounds()) {
+            double outOfBoundsOnLeft = SpaceInv.PLAY_AREA.getX();
+            double outOfBoundsOnRight = SpaceInv.PLAY_AREA.getX() + SpaceInv.PLAY_AREA.getWidth();
+            for (AbstractSpaceShip ship : this.ships) {
+                if (ship.getX() < outOfBoundsOnLeft) {
+                    outOfBoundsOnLeft = ship.getX();
+                }
+                if (ship.getX() + ship.getWidth() > outOfBoundsOnRight) {
+                    outOfBoundsOnRight = ship.getX() + ship.getWidth();
+                }
+            }
+            for (AbstractSpaceShip ship : this.ships) {
+                double moveDistance = ship.getMovementSpeed() * deltaTime;
+                if (ship.getMovingDirection() == Direction.LEFT) {
+                    ship.setX(ship.getX() - (SpaceInv.PLAY_AREA.getX() - outOfBoundsOnLeft));
+                } else if (ship.getMovingDirection() == Direction.RIGHT) {
+                    ship.setX(ship.getX() + (SpaceInv.PLAY_AREA.getX() + SpaceInv.PLAY_AREA.getWidth() - outOfBoundsOnRight));
+                }
+                ship.setY(ship.getY() + verticalOffset);
+            }
+        }
+    }
+
     // TODO move all ships on the x axis. If they cant move on x, move down and change direction.
 
     // TODO Some method to move the ships
-    public boolean move(double deltaTime) {
-        int moveOffset = 40;
-        for (AbstractSpaceShip ship : ships) {
-            ship.move(deltaTime);
-        }
-        if(isAnyShipOutOfBounds()){
-            for(AbstractSpaceShip ship : ships){
-                ship.reverseHorizontalDirection();
-                ship.move(deltaTime);
-                ship.setY(ship.getY() + moveOffset);
+    public void move(double deltaTime) {
+        for (AbstractSpaceShip ship : this.ships) {
+            if (ship.getMovingDirection() == Direction.LEFT) {
+                ship.setX(ship.getX() - ship.getMovementSpeed() * deltaTime);
             }
+            else if (ship.getMovingDirection() == Direction.RIGHT) {
+                ship.setX(ship.getX() + ship.getMovementSpeed() * deltaTime);
 
-            //TODO: Sound event!
-            return !isAnyShipOutOfBounds();
+            }
         }
-        return true;
     }
 
 
@@ -53,7 +77,8 @@ public class ShipFormation {
 
     private boolean isAnyShipOutOfBounds() {
         for (AbstractSpaceShip ship : this.ships) {
-            if (!ship.checkBoundaries()) {
+            if (!SpaceInv.PLAY_AREA.contains(ship)) {
+                SpaceInv.PLAY_AREA.contains(ship);
                 return true;
             }
         }

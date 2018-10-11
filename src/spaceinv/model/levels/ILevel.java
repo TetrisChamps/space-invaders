@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface ILevel {
 
-    OuterSpace getOuterSpace();    // To stop rocket
+    //OuterSpace getOuterSpace();    // To stop rocket
 
     Ground getGround();            // To stop bombs
 

@@ -14,6 +14,7 @@ public class Event {
         ROCKET_HIT_SHIP,
         SHIP_HIT_GROUND,
         ROCKET_LAUNCHED,
+        ROCKET_OUT_OF_BOUNDS,
         GAME_OVER,
         DEBUG,
         BOMB_DROPPED,
@@ -27,6 +28,7 @@ public class Event {
         this.type = type;
         this.data = data;
     }
+
 
     public Event(Event.Type type) {
         this(type, null);
