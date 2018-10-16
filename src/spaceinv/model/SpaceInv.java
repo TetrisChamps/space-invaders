@@ -119,10 +119,10 @@ public class SpaceInv {
         List<IPositionable> ps = new ArrayList<>();
         // TODO Add all to be rendered
 
+        ps.add(this.ground);
         for (AbstractSpaceShip ship : formation.getShips()) {
             ps.add(ship);
         }
-
         ps.add(this.gun);
         if (rocket != null) {
             ps.add(rocket);
