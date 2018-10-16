@@ -127,18 +127,30 @@ public class SpaceInvGUI extends Application {
     // --- Handling events coming form the model -----
 
     private void handleModelEvent(Event evt) {
-        if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
-            spaceInv.shipHit((AbstractSpaceShip) evt.data);
-        } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
-            spaceInv.fireGun();
-        } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_HIT_GUN) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_DROPPED) {
-
-        } else if (evt.type == Event.Type.ROCKET_OUT_OF_BOUNDS){
-            spaceInv.removeRocket();
+        switch(evt.type){
+            case BOMB_HIT_GUN:
+                break;
+            case BOMB_HIT_GROUND:
+                break;
+            case ROCKET_HIT_SHIP:
+                spaceInv.shipHit((AbstractSpaceShip) evt.data);
+                break;
+            case SHIP_HIT_GROUND:
+                break;
+            case ROCKET_LAUNCHED:
+                spaceInv.fireGun();
+                break;
+            case ROCKET_OUT_OF_BOUNDS:
+                spaceInv.removeRocket();
+                break;
+            case GAME_OVER:
+                break;
+            case DEBUG:
+                break;
+            case BOMB_DROPPED:
+                break;
+            case EXCEPTION:
+                break;
         }
     }
 
