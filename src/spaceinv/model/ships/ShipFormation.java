@@ -45,12 +45,15 @@ public class ShipFormation {
                     outOfBoundsOnRight = ship.getX() + ship.getWidth();
                 }
             }
+            outOfBoundsOnLeft = Math.abs(outOfBoundsOnLeft + SpaceInv.PLAY_AREA.getX());
+            outOfBoundsOnRight = Math.abs(outOfBoundsOnRight - SpaceInv.PLAY_AREA.getX() - SpaceInv.PLAY_AREA.getWidth());
             for (AbstractSpaceShip ship : this.ships) {
                 if (ship.getMovingDirection() == Direction.LEFT) {
-                    ship.setX(ship.getX() + Math.abs(outOfBoundsOnLeft + SpaceInv.PLAY_AREA.getX()));
+
+                    ship.setX(ship.getX() + 2 * outOfBoundsOnLeft);
                     ship.setMovingDirection(Direction.RIGHT);
                 } else if (ship.getMovingDirection() == Direction.RIGHT) {
-                    ship.setX(ship.getX() - (Math.abs(outOfBoundsOnRight - SpaceInv.PLAY_AREA.getX() - SpaceInv.PLAY_AREA.getWidth())));
+                    ship.setX(ship.getX() - 2 * outOfBoundsOnRight);
                     ship.setMovingDirection(Direction.LEFT);
                 }
                 ship.setY(ship.getY() + verticalOffset);
