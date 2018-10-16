@@ -1,6 +1,8 @@
 package spaceinv.model;
 
 
+import spaceinv.event.Event;
+import spaceinv.event.EventService;
 import spaceinv.model.projectiles.Rocket;
 
 /*
@@ -24,7 +26,8 @@ public class Gun extends AbstractMovable {
     }
 
     public Rocket shootGun() {
-        return new Rocket(getX() + (getWidth() - 10) / 2, getY(), 3);
+        //TODO: EventService.add(new Event(Event.Type.ROCKET_LAUNCHED));
+        return new Rocket(getX() + (getWidth() - 10) / 2, getY(), 200);
     }
 
     @Override

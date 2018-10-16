@@ -104,6 +104,11 @@ public class SpaceInv {
         }
     }
 
+    //--------- Rocket ---------
+    public void removeRocket(){
+        rocket = null;
+    }
+
     public boolean checkBoundaries(IPositionable ipos, double X, double Y){
 
         return  (X >= 0 && X <= (GAME_WIDTH - ipos.getWidth())) &&
