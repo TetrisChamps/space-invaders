@@ -1,18 +1,13 @@
 package spaceinv.model;
 
-import spaceinv.event.Event;
-import spaceinv.event.EventService;
 import spaceinv.model.levels.ILevel;
 import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
-import spaceinv.model.statics.OuterSpace;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javafx.application.Platform.exit;
 
 /*
  * Logic for the SpaceInv Game
@@ -59,15 +54,16 @@ public class SpaceInv {
 
     // ------ Game loop (called by timer) -----------------
     private long lastUpdate = 0;
+
     public void update(long now) {
         // Calculate time since last frame (seconds)
         double deltaTime = 0;
-        if(this.lastUpdate != 0){
-            deltaTime = (double)(now - this.lastUpdate) / ONE_SEC;
+        if (this.lastUpdate != 0) {
+            deltaTime = (double) (now - this.lastUpdate) / ONE_SEC;
         }
         this.lastUpdate = now;
         // Update components
-        if(this.rocket != null){
+        if (this.rocket != null) {
             this.rocket.update(deltaTime, this.formation);
         }
         this.gun.update(deltaTime);
@@ -81,7 +77,7 @@ public class SpaceInv {
     // ---------- Interaction with GUI  -------------------------
 
     public void fireGun() {
-        if(rocket == null){
+        if (rocket == null) {
             rocket = gun.shootGun();
         }
     }
@@ -90,28 +86,30 @@ public class SpaceInv {
         this.gun.setMovingDirection(direction);
     }
 
-    public void stopGun() {
-       // TODO
-    }
-
     //TODO move to absMovable
-    public void move(Gun ipos /* Should be AbsMovable */, int dirX, int dirY, double moveSpeed){
+    public void move(Gun ipos /* Should be AbsMovable */, int dirX, int dirY, double moveSpeed) {
         double movementX = ipos.getX() + moveSpeed * dirX;
         double movementY = ipos.getY() + moveSpeed * dirY;
-        if(checkBoundaries(ipos, movementX, movementY)){
+        if (checkBoundaries(ipos, movementX, movementY)) {
             ipos.setX(movementX);
             //ipos.setY(movementY); //TODO uncomment when absMovable is implemented.
         }
     }
 
+    //--------- Ship -----------
+    public void shipHit(AbstractSpaceShip ship) {
+        points += formation.destroyShip(ship);
+        removeRocket();
+    }
+
     //--------- Rocket ---------
-    public void removeRocket(){
+    public void removeRocket() {
         rocket = null;
     }
 
-    public boolean checkBoundaries(IPositionable ipos, double X, double Y){
+    public boolean checkBoundaries(IPositionable ipos, double X, double Y) {
 
-        return  (X >= 0 && X <= (GAME_WIDTH - ipos.getWidth())) &&
+        return (X >= 0 && X <= (GAME_WIDTH - ipos.getWidth())) &&
                 (Y >= 0 && Y <= (GAME_HEIGHT - ipos.getHeight()));
     }
 
@@ -119,7 +117,7 @@ public class SpaceInv {
 
     public List<IPositionable> getPositionables() {
         List<IPositionable> ps = new ArrayList<>();
-       // TODO Add all to be rendered
+        // TODO Add all to be rendered
 
         for (AbstractSpaceShip ship : formation.getShips()) {
             ps.add(ship);

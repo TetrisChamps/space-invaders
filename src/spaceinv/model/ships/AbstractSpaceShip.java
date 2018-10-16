@@ -23,11 +23,8 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
     private double minX;  // min and max for ship to move i x-dir
     private double maxX;
 
-    private double x;
-    private double y;
-
-    public AbstractSpaceShip(double x, double y, double width, double height, double movementSpeed) {
-        super(x, y, width, height, movementSpeed);
+    public AbstractSpaceShip(double x, double y, double movementSpeed) {
+        super(x, y, SHIP_WIDTH, SHIP_HEIGHT, movementSpeed);
         this.setMovingDirection(Direction.LEFT);
     }
 
@@ -40,33 +37,5 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
     // For ships moving back and forth
     public void setMoveInterval(double minX, double maxX){
         // TODO
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    @Override
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-    this.y = y;
-    }
-
-    @Override
-    public double getWidth() {
-        return SHIP_WIDTH;
-    }
-
-    @Override
-    public double getHeight() {
-        return SHIP_HEIGHT;
     }
 }

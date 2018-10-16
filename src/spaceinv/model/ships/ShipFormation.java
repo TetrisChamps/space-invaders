@@ -21,8 +21,9 @@ public class ShipFormation {
     private final List<AbstractSpaceShip> ships;
     private int indexToMove;
 
-    public int destroyShip() {
-        return 0;
+    public int destroyShip(AbstractSpaceShip ship) {
+        ships.remove(ship);
+        return ship.getPoints();
     }
     // TODO destroy a ship return a score
 

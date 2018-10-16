@@ -19,6 +19,7 @@ import spaceinv.event.EventService;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.Level0;
+import spaceinv.model.ships.AbstractSpaceShip;
 
 import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.GAME_HEIGHT;
@@ -127,7 +128,7 @@ public class SpaceInvGUI extends Application {
 
     private void handleModelEvent(Event evt) {
         if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
-            // TODO
+            spaceInv.shipHit((AbstractSpaceShip) evt.data);
         } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
             // TODO
         } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {

@@ -8,7 +8,7 @@ public class BattleCruiser extends AbstractSpaceShip {
     private final int points = 10;
 
     public BattleCruiser() {
-        super(0, 0, 50, 50, 20);
+        super(0, 0, 20);
     }
 
 
