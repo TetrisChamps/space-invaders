@@ -12,7 +12,7 @@ import java.util.Random;
  */
 
 public abstract class AbstractSpaceShip extends AbstractMovable {
-    
+
     public static final double SHIP_WIDTH = 40;
     public static final double SHIP_HEIGHT = 30;
     public static final double SHIPS_DX = 5;
@@ -23,19 +23,28 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
     private double minX;  // min and max for ship to move i x-dir
     private double maxX;
 
-    public AbstractSpaceShip(double x, double y, double movementSpeed) {
+    private final int points;
+
+    public AbstractSpaceShip(double x, double y, double movementSpeed, int points) {
         super(x, y, SHIP_WIDTH, SHIP_HEIGHT, movementSpeed);
         this.setMovingDirection(Direction.LEFT);
+        this.points = points;
     }
 
-    // To be overridden
-    public abstract int getPoints();
+    public int getPoints() {
+        return points;
+    }
 
     // To be overridden
     public abstract Object copyOf();
 
     // For ships moving back and forth
-    public void setMoveInterval(double minX, double maxX){
+    public void setMoveInterval(double minX, double maxX) {
         // TODO
+    }
+
+    @Override
+    public void move(double deltaTime, Direction direction) {
+        // TODO: move move logic here
     }
 }

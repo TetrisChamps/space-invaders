@@ -5,25 +5,12 @@ package spaceinv.model.ships;
  */
 public class BattleCruiser extends AbstractSpaceShip {
 
-    private final int points = 10;
-
     public BattleCruiser() {
-        super(0, 0, 20);
-    }
-
-
-    @Override
-    public int getPoints() {
-        return points;
+        super(0, 0, 20, 10);
     }
 
     @Override
     public Object copyOf() {
         return new BattleCruiser();
-    }
-
-    @Override
-    public void move(double deltaTime, Direction direction) {
-
     }
 }
