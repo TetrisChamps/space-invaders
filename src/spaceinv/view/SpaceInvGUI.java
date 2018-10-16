@@ -19,12 +19,11 @@ import spaceinv.event.EventService;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.Level0;
+import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.ships.AbstractSpaceShip;
 
 import static spaceinv.model.AbstractMovable.Direction;
-import static spaceinv.model.SpaceInv.GAME_HEIGHT;
-import static spaceinv.model.SpaceInv.GAME_WIDTH;
-import static spaceinv.model.SpaceInv.ONE_SEC;
+import static spaceinv.model.SpaceInv.*;
 
 
 /*
@@ -127,11 +126,12 @@ public class SpaceInvGUI extends Application {
     // --- Handling events coming form the model -----
 
     private void handleModelEvent(Event evt) {
-        switch(evt.type){
+        switch (evt.type) {
             case BOMB_HIT_GUN:
                 EventService.add(new Event(Event.Type.GAME_OVER));
                 break;
             case BOMB_HIT_GROUND:
+                spaceInv.removeBomb((Bomb) evt.data);
                 break;
             case ROCKET_HIT_SHIP:
                 spaceInv.shipHit((AbstractSpaceShip) evt.data);
@@ -152,6 +152,7 @@ public class SpaceInvGUI extends Application {
             case DEBUG:
                 break;
             case BOMB_DROPPED:
+                spaceInv.dropBomb((Bomb) evt.data);
                 break;
             case EXCEPTION:
                 break;
@@ -160,6 +161,7 @@ public class SpaceInvGUI extends Application {
 
     // ************* Rendering and JavaFX below (nothing to do)  *************
     private long lastRender = 0;
+
     private void render(long now) {
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         for (IPositionable d : spaceInv.getPositionables()) {
@@ -169,7 +171,7 @@ public class SpaceInvGUI extends Application {
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
-        if(showOSD){
+        if (showOSD) {
             fg.fillText("FPS: " + (ONE_SEC / (now - lastRender)), 700, 50);
             fg.fillText("Version: " + "1.0", 700, 75);
         }
