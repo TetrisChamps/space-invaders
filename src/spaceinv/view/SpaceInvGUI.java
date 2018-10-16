@@ -129,6 +129,7 @@ public class SpaceInvGUI extends Application {
     private void handleModelEvent(Event evt) {
         switch(evt.type){
             case BOMB_HIT_GUN:
+                EventService.add(new Event(Event.Type.GAME_OVER));
                 break;
             case BOMB_HIT_GROUND:
                 break;
@@ -145,6 +146,8 @@ public class SpaceInvGUI extends Application {
                 spaceInv.removeRocket();
                 break;
             case GAME_OVER:
+                //TODO: Render game over screen
+                stopGame();
                 break;
             case DEBUG:
                 break;
