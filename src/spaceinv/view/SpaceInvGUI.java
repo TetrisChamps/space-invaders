@@ -136,6 +136,7 @@ public class SpaceInvGUI extends Application {
                 spaceInv.shipHit((AbstractSpaceShip) evt.data);
                 break;
             case SHIP_HIT_GROUND:
+                EventService.add(new Event(Event.Type.GAME_OVER));
                 break;
             case ROCKET_LAUNCHED:
                 spaceInv.fireGun();
