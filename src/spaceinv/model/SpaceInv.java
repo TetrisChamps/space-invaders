@@ -67,7 +67,7 @@ public class SpaceInv {
             this.rocket.update(deltaTime, this.formation);
         }
         this.gun.update(deltaTime);
-        this.formation.update(deltaTime);
+        this.formation.update(deltaTime,gun , ground);
     }
 
     // ------------- Increase pressure on player
