@@ -136,6 +136,8 @@ public class SpaceInvGUI extends Application {
             // TODO
         } else if (evt.type == Event.Type.BOMB_DROPPED) {
 
+        } else if (evt.type == Event.Type.ROCKET_OUT_OF_BOUNDS){
+            spaceInv.removeRocket();
         }
     }
 
