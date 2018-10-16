@@ -59,7 +59,7 @@ public class SpaceInvGUI extends Application {
                 spaceInv.setGunMovingDirection(Direction.RIGHT);
                 break;
             case SPACE:
-                spaceInv.fireGun();
+                EventService.add(new Event(Event.Type.ROCKET_LAUNCHED));
                 break;
             case F12:
                 showOSD = !showOSD;
@@ -130,7 +130,7 @@ public class SpaceInvGUI extends Application {
         if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
             spaceInv.shipHit((AbstractSpaceShip) evt.data);
         } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
-            // TODO
+            spaceInv.fireGun();
         } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {
             // TODO
         } else if (evt.type == Event.Type.BOMB_HIT_GUN) {
