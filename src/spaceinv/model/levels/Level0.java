@@ -6,6 +6,8 @@ import spaceinv.model.Gun;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.BattleCruiser;
+import spaceinv.model.ships.Frigate;
+import spaceinv.model.ships.Bomber;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 import spaceinv.model.statics.OuterSpace;
@@ -22,7 +24,9 @@ public class Level0 implements ILevel {
 
     private final List<AbstractSpaceShip> ships =
             addAll(
-                    distribute(asList(new BattleCruiser(), 25), 5)
+                    distribute(asList(new BattleCruiser(), 13), 5),
+                    distribute(asList(new Bomber(), 10), 5),
+                    distribute(asList(new Frigate(), 9), 5)
             );
             // TODO replace null above with some ship
 

@@ -8,11 +8,11 @@ import spaceinv.model.projectiles.Bomb;
 public class Bomber extends AbstractSpaceShip {
 
     public Bomber() {
-        super(0, 0, 20, 10);
+        super(0, 0, 20, 20);
     }
 
     @Override
     public Object copyOf() {
-        return new BattleCruiser();
+        return new Bomber();
     }
 }

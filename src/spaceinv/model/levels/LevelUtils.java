@@ -5,6 +5,7 @@ import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -30,43 +31,29 @@ public final class LevelUtils {
     // Add space between ships and set initial interval for movement in horizontal direction
     public static <T extends AbstractSpaceShip> List<T> distribute(List<T> ships, double horizonDistBetweenShip) {
         int shipsPerRow = (int)(SpaceInv.GAME_WIDTH - ShipFormation.PADDING_LEFT * 2) / (int)(AbstractSpaceShip.SHIP_WIDTH + horizonDistBetweenShip);
-        int numberOfFullRows = ships.size() / shipsPerRow;
-        int fullRowPadding = ((int)(SpaceInv.GAME_WIDTH - ShipFormation.PADDING_LEFT * 2) - (int)(shipsPerRow * (AbstractSpaceShip.SHIP_WIDTH + horizonDistBetweenShip))) / 2;
-        int partialRowPadding = ((int)(SpaceInv.GAME_WIDTH - ShipFormation.PADDING_LEFT * 2) - (int)((ships.size() % shipsPerRow) * (AbstractSpaceShip.SHIP_WIDTH + horizonDistBetweenShip))) / 2;
-        int xDistance = (int)(horizonDistBetweenShip / 2);
-        int row = 0;
-        int column = 0;
-        int yOffset = 50;
+        int shipCount = ships.size();
+        int startColumn = (shipsPerRow - Math.min(shipCount, shipsPerRow)) / 2;
+        int i = 0;
         for (AbstractSpaceShip ship : ships) {
-            if (row <= numberOfFullRows - 1) {
-                ship.setX(ShipFormation.PADDING_LEFT + xDistance + fullRowPadding + column * (AbstractSpaceShip.SHIP_WIDTH + horizonDistBetweenShip));
+            if (i < Math.min(shipCount, shipsPerRow)) {
+                ship.setX(SpaceInv.PLAY_AREA.getX() + ShipFormation.PADDING_LEFT + horizonDistBetweenShip / 2 + (startColumn + i) * (ship.getWidth() + horizonDistBetweenShip));
             }
-            else {
-                ship.setX(ShipFormation.PADDING_LEFT + xDistance + partialRowPadding + column * (AbstractSpaceShip.SHIP_WIDTH + horizonDistBetweenShip));
-            }
-            ship.setY(yOffset + row * AbstractSpaceShip.SHIP_HEIGHT);
-            column++;
-            if (column != 0 && column % shipsPerRow == 0) {
-                column = 0;
-                row++;
-            }
-
+            i++;
         }
+        ships = ships.subList(0, Math.min(shipCount, shipsPerRow));
         return ships;
-        //double xDistance = 0;
-        //for (AbstractSpaceShip s : ships) {
-        //    s.setX(s.getX() + xDistance);
-        //    s.setMoveInterval(s.getX(), s.getX() + 2 * s.getWidth());
-        //    xDistance = xDistance + s.getWidth() + horizonDistBetweenShip;
-        //}
-        //return ships;
     }
 
     // To addAll many rows of ships into single list
     public static <T extends AbstractSpaceShip> List<T> addAll(List<T>... lists) {
         List<T> result = new ArrayList<>();
+        int row = 0;
         for (List<T> l : lists) {
+            for (AbstractSpaceShip ship : l) {
+                ship.setY(row * (ship.getHeight() + 5));
+            }
             result.addAll(l);
+            row++;
         }
         return result;
     }

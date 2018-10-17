@@ -6,11 +6,11 @@ package spaceinv.model.ships;
 public class Frigate extends AbstractSpaceShip {
 
     public Frigate() {
-        super(0, 0, 20, 10);
+        super(0, 0, 20, 30);
     }
 
     @Override
     public Object copyOf() {
-        return new BattleCruiser();
+        return new Frigate();
     }
 }
