@@ -1,6 +1,8 @@
 package spaceinv.model;
 
 import spaceinv.model.levels.ILevel;
+import spaceinv.model.projectiles.AbstractProjectile;
+import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
@@ -40,6 +42,8 @@ public class SpaceInv {
     private Rocket rocket;
     private int points;
 
+    private List<Bomb> bombs;
+
     // Timing. All timing handled here!
     private long timeForLastMove;
     private long timeForlastFire;
@@ -67,7 +71,7 @@ public class SpaceInv {
             this.rocket.update(deltaTime, this.formation);
         }
         this.gun.update(deltaTime);
-        this.formation.update(deltaTime);
+        this.formation.update(deltaTime,gun , ground);
     }
 
     // ------------- Increase pressure on player
@@ -106,6 +110,14 @@ public class SpaceInv {
     public void removeRocket() {
         rocket = null;
     }
+    //--------- Bomb -----------
+    public void dropBomb(Bomb bomb){
+        bombs.add(bomb);
+    }
+    public void removeBomb(Bomb bomb){
+        bombs.remove(bomb);
+    }
+
 
     public boolean checkBoundaries(IPositionable ipos, double X, double Y) {
 

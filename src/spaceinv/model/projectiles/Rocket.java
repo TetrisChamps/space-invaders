@@ -17,7 +17,7 @@ public class Rocket extends AbstractProjectile {
     public void update(double deltaTime, ShipFormation formation) {
         this.move(deltaTime);
         if (!SpaceInv.PLAY_AREA.intersects(this)) {
-            EventService.add(new Event(Event.Type.ROCKET_OUT_OF_BOUNDS, null));
+            EventService.add(new Event(Event.Type.ROCKET_OUT_OF_BOUNDS));
             return;
         }
         for (AbstractSpaceShip ship : formation.getShips()) {

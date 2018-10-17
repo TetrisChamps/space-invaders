@@ -19,12 +19,11 @@ import spaceinv.event.EventService;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.Level0;
+import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.ships.AbstractSpaceShip;
 
 import static spaceinv.model.AbstractMovable.Direction;
-import static spaceinv.model.SpaceInv.GAME_HEIGHT;
-import static spaceinv.model.SpaceInv.GAME_WIDTH;
-import static spaceinv.model.SpaceInv.ONE_SEC;
+import static spaceinv.model.SpaceInv.*;
 
 
 /*
@@ -43,6 +42,7 @@ public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
     private boolean showOSD = false;
+    private boolean gameEnded = false;
 
     // ------- Keyboard handling ----------------------------------
 
@@ -127,25 +127,55 @@ public class SpaceInvGUI extends Application {
     // --- Handling events coming form the model -----
 
     private void handleModelEvent(Event evt) {
-        if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
-            spaceInv.shipHit((AbstractSpaceShip) evt.data);
-        } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
-            spaceInv.fireGun();
-        } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_HIT_GUN) {
-            // TODO
-        } else if (evt.type == Event.Type.BOMB_DROPPED) {
-
-        } else if (evt.type == Event.Type.ROCKET_OUT_OF_BOUNDS){
-            spaceInv.removeRocket();
+        switch (evt.type) {
+            case BOMB_HIT_GUN:
+                EventService.add(new Event(Event.Type.GAME_OVER));
+                break;
+            case BOMB_HIT_GROUND:
+                spaceInv.removeBomb((Bomb) evt.data);
+                break;
+            case ROCKET_HIT_SHIP:
+                spaceInv.shipHit((AbstractSpaceShip) evt.data);
+                break;
+            case SHIP_HIT_GROUND:
+                EventService.add(new Event(Event.Type.GAME_OVER));
+                break;
+            case ROCKET_LAUNCHED:
+                spaceInv.fireGun();
+                break;
+            case ROCKET_OUT_OF_BOUNDS:
+                spaceInv.removeRocket();
+                break;
+            case GAME_OVER:
+                gameEnded = true;
+                stopGame();
+                break;
+            case DEBUG:
+                break;
+            case BOMB_DROPPED:
+                spaceInv.dropBomb((Bomb) evt.data);
+                break;
+            case EXCEPTION:
+                break;
         }
     }
 
     // ************* Rendering and JavaFX below (nothing to do)  *************
     private long lastRender = 0;
+
     private void render(long now) {
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        if(gameEnded){
+            renderEndScreen();
+        }
+        else {
+            renderGame(now);
+        }
+
+        lastRender = now;
+    }
+
+    private void renderGame(long now){
         for (IPositionable d : spaceInv.getPositionables()) {
             Image i = Assets.INSTANCE.get(d.getClass());
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
@@ -153,11 +183,18 @@ public class SpaceInvGUI extends Application {
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
-        if(showOSD){
+        if (showOSD) {
             fg.fillText("FPS: " + (ONE_SEC / (now - lastRender)), 700, 50);
             fg.fillText("Version: " + "1.0", 700, 75);
         }
-        lastRender = now;
+    }
+
+    private void renderEndScreen(){
+        Image i = Assets.INSTANCE.splash;
+        fg.drawImage(i, 0, 0, GAME_WIDTH, GAME_HEIGHT);
+        fg.setFill(Assets.INSTANCE.colorFgText);
+        fg.setFont(Font.font(40));
+        fg.fillText(String.valueOf("Points: " + spaceInv.getPoints()), 320, 380);
     }
 
     private void renderExplosion(double x, double y) {

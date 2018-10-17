@@ -1,8 +1,12 @@
 package spaceinv.model.ships;
 
 
+import spaceinv.event.Event;
+import spaceinv.event.EventService;
 import spaceinv.model.AbstractMovable.Direction;
+import spaceinv.model.Gun;
 import spaceinv.model.SpaceInv;
+import spaceinv.model.statics.Ground;
 
 import java.util.List;
 import java.util.Random;
@@ -32,7 +36,7 @@ public class ShipFormation {
         indexToMove = ships.size() - 1;
     }
 
-    public void update(double deltaTime) {
+    public void update(double deltaTime, Gun gun, Ground ground) {
         int verticalOffset = 20;
         this.move(deltaTime);
         if (isAnyShipOutOfBounds()) {
@@ -58,6 +62,12 @@ public class ShipFormation {
                     ship.setMovingDirection(Direction.LEFT);
                 }
                 ship.setY(ship.getY() + verticalOffset);
+            }
+        }
+        for(AbstractSpaceShip ship : this.ships){
+            if(!SpaceInv.PLAY_AREA.contains(ship) || ship.intersects(ground) || ship.intersects(gun) ){
+                System.out.println("GAME OVER");
+                EventService.add(new Event(Event.Type.GAME_OVER));
             }
         }
     }
