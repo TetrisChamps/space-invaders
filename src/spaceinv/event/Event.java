@@ -19,6 +19,7 @@ public class Event {
         DEBUG,
         BOMB_DROPPED,
         EXPLOSION_EXPLODED,
+        ROCKET_HIT_BOMB,
         EXCEPTION       // Possible useful
     }
 

@@ -168,6 +168,10 @@ public class SpaceInvGUI extends Application {
             case EXPLOSION_EXPLODED:
                 removeExplosion((Explosion) evt.data);
                 break;
+            case ROCKET_HIT_BOMB:
+                explosionAtMovable((AbstractMovable) evt.data);
+                spaceInv.rocketHitBomb((Bomb) evt.data);
+                break;
             case EXCEPTION:
                 break;
         }

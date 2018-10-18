@@ -1,7 +1,6 @@
 package spaceinv.model;
 
 import spaceinv.model.levels.ILevel;
-import spaceinv.model.projectiles.AbstractProjectile;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
@@ -10,7 +9,6 @@ import spaceinv.model.statics.Ground;
 import spaceinv.view.Assets;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -73,11 +71,11 @@ public class SpaceInv {
         if (this.rocket != null) {
             this.rocket.update(deltaTime, this.formation);
         }
-        for(Bomb bomb : bombs){
+        for (Bomb bomb : bombs) {
             bomb.update(deltaTime, ground, gun);
         }
         this.gun.update(deltaTime);
-        this.formation.update(deltaTime,gun , ground);
+        this.formation.update(deltaTime, gun, ground);
     }
 
     // ------------- Increase pressure on player
@@ -117,13 +115,20 @@ public class SpaceInv {
     public void removeRocket() {
         rocket = null;
     }
+
+    public void rocketHitBomb(Bomb bomb){
+        rocket = null;
+        bombs.remove(bomb);
+    }
+
     //--------- Bomb -----------
-    public void dropBomb(Bomb bomb){
+    public void dropBomb(Bomb bomb) {
         if (bombs.size() < 2) {
             bombs.add(bomb);
         }
     }
-    public void removeBomb(Bomb bomb){
+
+    public void removeBomb(Bomb bomb) {
         bombs.remove(bomb);
     }
 
@@ -144,7 +149,7 @@ public class SpaceInv {
         for (AbstractSpaceShip ship : formation.getShips()) {
             ps.add(ship);
         }
-        for(Bomb bomb : bombs){
+        for (Bomb bomb : bombs) {
             ps.add(bomb);
         }
         ps.add(this.gun);
