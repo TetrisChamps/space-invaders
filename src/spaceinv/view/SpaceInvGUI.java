@@ -16,11 +16,14 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import spaceinv.event.Event;
 import spaceinv.event.EventService;
+import spaceinv.model.AbstractMovable;
 import spaceinv.model.IPositionable;
 import spaceinv.model.SpaceInv;
 import spaceinv.model.levels.Level0;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.ships.AbstractSpaceShip;
+
+import java.applet.AudioClip;
 
 import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.*;
@@ -132,9 +135,11 @@ public class SpaceInvGUI extends Application {
                 break;
             case BOMB_HIT_GROUND:
                 spaceInv.removeBomb((Bomb) evt.data);
+                explostionAtMovable((AbstractMovable) evt.data);
                 break;
             case ROCKET_HIT_SHIP:
                 spaceInv.shipHit((AbstractSpaceShip) evt.data);
+                explostionAtMovable((AbstractMovable) evt.data);
                 break;
             case SHIP_HIT_GROUND:
                 EventService.add(new Event(Event.Type.GAME_OVER));
@@ -156,6 +161,11 @@ public class SpaceInvGUI extends Application {
             case EXCEPTION:
                 break;
         }
+    }
+
+    private void explostionAtMovable(AbstractMovable movable){
+        renderExplosion(movable.getX(), movable.getY());
+        Assets.INSTANCE.rocketHitShip.play();
     }
 
     // ************* Rendering and JavaFX below (nothing to do)  *************
