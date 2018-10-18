@@ -13,11 +13,11 @@ import java.util.Random;
 
 public abstract class AbstractSpaceShip extends AbstractMovable {
 
-    public static final double SHIP_WIDTH = 40;
-    public static final double SHIP_HEIGHT = 40;
+    public static final double SHIP_WIDTH = 50;
+    public static final double SHIP_HEIGHT = 50;
     public static final double SHIPS_DX = 5;
     public static final double SHIPS_DY = 7;
-
+    public static final double BASE_MOVEMENT_SPEED = 35;
     private static Random rand = new Random();   // TODO
 
     private double minX;  // min and max for ship to move i x-dir
@@ -25,8 +25,8 @@ public abstract class AbstractSpaceShip extends AbstractMovable {
 
     private final int points;
 
-    public AbstractSpaceShip(double x, double y, double movementSpeed, int points) {
-        super(x, y, SHIP_WIDTH, SHIP_HEIGHT, movementSpeed);
+    public AbstractSpaceShip(double x, double y, int points) {
+        super(x, y, SHIP_WIDTH, SHIP_HEIGHT, BASE_MOVEMENT_SPEED);
         this.setMovingDirection(Direction.LEFT);
         this.points = points;
     }

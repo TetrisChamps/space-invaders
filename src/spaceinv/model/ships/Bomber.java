@@ -16,7 +16,7 @@ public class Bomber extends AbstractSpaceShip {
     ;
 
     public Bomber() {
-        super(0, 0, 20, 20);
+        super(0, 0, 20);
         dropChance = 0.003f;
     }
 
@@ -30,7 +30,7 @@ public class Bomber extends AbstractSpaceShip {
         if(dropValue <= dropChance){
             EventService.add(new Event(Event.Type.BOMB_DROPPED, new Bomb(
                     this.getX() + getWidth()/2 - Bomb.BOMB_WIDTH/2,
-                    this.getY() + getHeight() - Bomb.BOMB_HEIGHT / 2, 200))
+                    this.getY() + getHeight() - Bomb.BOMB_HEIGHT / 2, 300))
             );
         }
     }

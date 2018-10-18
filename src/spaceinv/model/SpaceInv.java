@@ -71,7 +71,7 @@ public class SpaceInv {
         this.lastUpdate = now;
         // Update components
         if (this.rocket != null) {
-            this.rocket.update(deltaTime, this.formation);
+            this.rocket.update(deltaTime, this.formation, this.bombs);
         }
         for(Bomb bomb : bombs){
             bomb.update(deltaTime, ground, gun);
