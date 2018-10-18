@@ -191,7 +191,7 @@ public class SpaceInvGUI extends Application {
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
         }
         for(Explosion explosion : explosions){
-            explosion.handle(now);
+            explosion.update(now);
         }
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));

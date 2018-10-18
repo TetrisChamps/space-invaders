@@ -13,7 +13,7 @@ import spaceinv.event.EventService;
 
      *** Nothing to do here ***
  */
-public class Explosion extends AnimationTimer {
+public class Explosion {
 
     private static final Image image = Assets.INSTANCE.explosion;
     private double x;
@@ -27,18 +27,15 @@ public class Explosion extends AnimationTimer {
         this.x = x;
         this.y = y;
         this.gc = gc;
-        super.start();
     }
 
-    @Override
-    public void handle(long now) {
+    public void update(long now) {
         gc.drawImage(image, sx, sy, 80, 80, x - 20, y - 40, 80, 80);
         sx = (sx + 80) % 640;
         if (sx == 0) {
             sy = (sy + 80) % 480;
         }
         if (frameCounter > 48) {
-            stop();
             EventService.add(new Event(Event.Type.EXPLOSION_EXPLODED, this));
             return;
         }

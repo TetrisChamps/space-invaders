@@ -17,7 +17,7 @@ public class Bomber extends AbstractSpaceShip {
 
     public Bomber() {
         super(0, 0, 20, 20);
-        dropChance = 0.5f;
+        dropChance = 0.01f;
     }
 
     @Override
