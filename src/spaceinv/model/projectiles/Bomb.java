@@ -21,13 +21,11 @@ public class Bomb extends AbstractProjectile {
     public void update(double deltaTime, Ground ground, Gun gun) {
         this.move(deltaTime);
         if (ground.intersects(this)) {
-            EventService.add(new Event(Event.Type.BOMB_HIT_GROUND));
+            EventService.add(new Event(Event.Type.BOMB_HIT_GROUND, this));
             return;
         }
         if (gun.intersects(this)) {
             EventService.add(new Event(Event.Type.BOMB_HIT_GUN, this));
         }
-
-
     }
 }

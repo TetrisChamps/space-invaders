@@ -27,7 +27,7 @@ public class ShipFormation {
 
     public int destroyShip(AbstractSpaceShip ship) {
         ships.remove(ship);
-        if(ships.isEmpty()){
+        if (ships.isEmpty()) {
             EventService.add(new Event(Event.Type.GAME_OVER));
         }
         return ship.getPoints();
@@ -41,6 +41,7 @@ public class ShipFormation {
 
     public void update(double deltaTime, Gun gun, Ground ground) {
         int verticalOffset = 20;
+        this.dropBombs();
         this.move(deltaTime);
         if (isAnyShipOutOfBounds()) {
             double outOfBoundsOnLeft = SpaceInv.PLAY_AREA.getX();
@@ -67,8 +68,8 @@ public class ShipFormation {
                 ship.setY(ship.getY() + verticalOffset);
             }
         }
-        for(AbstractSpaceShip ship : this.ships){
-            if(!SpaceInv.PLAY_AREA.contains(ship) || ship.intersects(ground) || ship.intersects(gun) ){
+        for (AbstractSpaceShip ship : this.ships) {
+            if (!SpaceInv.PLAY_AREA.contains(ship) || ship.intersects(ground) || ship.intersects(gun)) {
                 System.out.println("GAME OVER");
                 EventService.add(new Event(Event.Type.GAME_OVER));
             }
@@ -82,10 +83,17 @@ public class ShipFormation {
         for (AbstractSpaceShip ship : this.ships) {
             if (ship.getMovingDirection() == Direction.LEFT) {
                 ship.setX(ship.getX() - ship.getMovementSpeed() * deltaTime);
-            }
-            else if (ship.getMovingDirection() == Direction.RIGHT) {
+            } else if (ship.getMovingDirection() == Direction.RIGHT) {
                 ship.setX(ship.getX() + ship.getMovementSpeed() * deltaTime);
 
+            }
+        }
+    }
+
+    public void dropBombs() {
+        for(AbstractSpaceShip ship : this.ships){
+            if(ship instanceof Bomber){
+                ((Bomber)ship).dropBomb();
             }
         }
     }

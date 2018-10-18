@@ -9,6 +9,7 @@ import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -54,6 +55,7 @@ public class SpaceInv {
         //this.outerSpace = level.getOuterSpace();
         this.gun = level.getGun();
         this.formation = level.getFormation();
+        this.bombs = new ArrayList<>();
     }
 
     // ------ Game loop (called by timer) -----------------
@@ -69,6 +71,9 @@ public class SpaceInv {
         // Update components
         if (this.rocket != null) {
             this.rocket.update(deltaTime, this.formation);
+        }
+        for(Bomb bomb : bombs){
+            bomb.update(deltaTime, ground, gun);
         }
         this.gun.update(deltaTime);
         this.formation.update(deltaTime,gun , ground);
@@ -134,6 +139,9 @@ public class SpaceInv {
         ps.add(this.ground);
         for (AbstractSpaceShip ship : formation.getShips()) {
             ps.add(ship);
+        }
+        for(Bomb bomb : bombs){
+            ps.add(bomb);
         }
         ps.add(this.gun);
         if (rocket != null) {
