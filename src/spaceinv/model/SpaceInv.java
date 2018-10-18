@@ -117,7 +117,9 @@ public class SpaceInv {
     }
     //--------- Bomb -----------
     public void dropBomb(Bomb bomb){
-        bombs.add(bomb);
+        if (bombs.size() < 2) {
+            bombs.add(bomb);
+        }
     }
     public void removeBomb(Bomb bomb){
         bombs.remove(bomb);

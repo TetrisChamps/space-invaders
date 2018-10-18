@@ -23,6 +23,9 @@ public class Rocket extends AbstractProjectile {
         for (AbstractSpaceShip ship : formation.getShips()) {
             if (ship.intersects(this)) {
                 EventService.add(new Event(Event.Type.ROCKET_HIT_SHIP, ship));
+                for (AbstractSpaceShip s : formation.getShips()) {
+                    s.setMovementSpeed(s.getMovementSpeed() * 1.05f);
+                }
                 return;
             }
         }
