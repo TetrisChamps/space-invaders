@@ -14,7 +14,7 @@ import java.util.Random;
 public abstract class AbstractSpaceShip extends AbstractMovable {
 
     public static final double SHIP_WIDTH = 40;
-    public static final double SHIP_HEIGHT = 30;
+    public static final double SHIP_HEIGHT = 40;
     public static final double SHIPS_DX = 5;
     public static final double SHIPS_DY = 7;
 
