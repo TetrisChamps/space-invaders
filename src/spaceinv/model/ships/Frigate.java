@@ -6,7 +6,7 @@ package spaceinv.model.ships;
 public class Frigate extends AbstractSpaceShip {
 
     public Frigate() {
-        super(0, 0, 20, 30);
+        super(0, 0, 30);
     }
 
     @Override

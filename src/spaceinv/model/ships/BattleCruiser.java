@@ -6,7 +6,7 @@ package spaceinv.model.ships;
 public class BattleCruiser extends AbstractSpaceShip {
 
     public BattleCruiser() {
-        super(0, 0, 20, 10);
+        super(0, 0, 10);
     }
 
     @Override

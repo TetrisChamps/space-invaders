@@ -27,7 +27,7 @@ public class Gun extends AbstractMovable {
 
     public Rocket shootGun() {
         //TODO: EventService.add(new Event(Event.Type.ROCKET_LAUNCHED));
-        return new Rocket(getX() + (getWidth() - 10) / 2, getY(), 200);
+        return new Rocket(getX() + (getWidth() - 10) / 2, getY(), 300);
     }
 
     @Override
