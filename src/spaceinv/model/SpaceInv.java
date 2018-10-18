@@ -7,6 +7,7 @@ import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
+import spaceinv.view.Assets;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -88,6 +89,7 @@ public class SpaceInv {
     public void fireGun() {
         if (rocket == null) {
             rocket = gun.shootGun();
+            Assets.INSTANCE.rocketLaunched.play();
         }
     }
 

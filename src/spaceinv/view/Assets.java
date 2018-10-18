@@ -56,6 +56,7 @@ public enum Assets {
     public final AudioClip rocketHitShip = getSound("explosion1.wav");
     // TODO, some problems with playing different file formats, wav bad .. too big files
      public final AudioClip backgroundMusic = getSound("spacemusic.mp3");
+     public final AudioClip rocketLaunched = getSound("rocket.wav");
 
     // -------------- Connect classes or objects to images -----------------
 

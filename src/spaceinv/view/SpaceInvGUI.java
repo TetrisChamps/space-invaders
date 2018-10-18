@@ -102,7 +102,7 @@ public class SpaceInvGUI extends Application {
                 System.exit(0);
                 break;
             case "Play":
-                
+
                 Assets.INSTANCE.backgroundMusic.play();
                 break;
             case "No Play":
