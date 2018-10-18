@@ -23,6 +23,9 @@ import spaceinv.model.levels.Level0;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.ships.AbstractSpaceShip;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.*;
 
@@ -43,6 +46,8 @@ public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
     private boolean showOSD = false;
+
+    private List<Explosion> explosions = new ArrayList<>();
 
     // ------- Keyboard handling ----------------------------------
 
@@ -156,6 +161,9 @@ public class SpaceInvGUI extends Application {
             case BOMB_DROPPED:
                 spaceInv.dropBomb((Bomb) evt.data);
                 break;
+            case EXPLOSION_EXPLODED:
+                removeExplosion((Explosion) evt.data);
+                break;
             case EXCEPTION:
                 break;
         }
@@ -182,6 +190,9 @@ public class SpaceInvGUI extends Application {
             Image i = Assets.INSTANCE.get(d.getClass());
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
         }
+        for(Explosion explosion : explosions){
+            explosion.handle(now);
+        }
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(Assets.INSTANCE.fontSize));
         fg.fillText(String.valueOf(spaceInv.getPoints()), 50, 50);
@@ -192,6 +203,7 @@ public class SpaceInvGUI extends Application {
     }
 
     private void renderEndScreen(){
+        explosions.clear();
         stopGame();
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         Image i = Assets.INSTANCE.splash;
@@ -202,7 +214,13 @@ public class SpaceInvGUI extends Application {
     }
 
     private void renderExplosion(double x, double y) {
-        new Explosion().start(x, y, fg);
+        Explosion explosion = new Explosion();
+        explosion.start(x, y, fg);
+        explosions.add(explosion);
+    }
+
+    private void removeExplosion(Explosion explosion){
+        explosions.remove(explosion);
     }
 
     private void renderBackground() {

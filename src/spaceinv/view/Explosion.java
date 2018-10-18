@@ -3,6 +3,8 @@ package spaceinv.view;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import spaceinv.event.Event;
+import spaceinv.event.EventService;
 
 /*
      Animation for an explosion
@@ -37,6 +39,7 @@ public class Explosion extends AnimationTimer {
         }
         if (frameCounter > 48) {
             stop();
+            EventService.add(new Event(Event.Type.EXPLOSION_EXPLODED, this));
             return;
         }
         frameCounter++;
