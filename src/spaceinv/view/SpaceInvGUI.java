@@ -42,7 +42,6 @@ public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
     private boolean showOSD = false;
-    private boolean gameEnded = false;
 
     // ------- Keyboard handling ----------------------------------
 
@@ -147,8 +146,7 @@ public class SpaceInvGUI extends Application {
                 spaceInv.removeRocket();
                 break;
             case GAME_OVER:
-                gameEnded = true;
-                stopGame();
+                renderEndScreen();
                 break;
             case DEBUG:
                 break;
@@ -164,18 +162,12 @@ public class SpaceInvGUI extends Application {
     private long lastRender = 0;
 
     private void render(long now) {
-        fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        if(gameEnded){
-            renderEndScreen();
-        }
-        else {
-            renderGame(now);
-        }
-
+        renderGame(now);
         lastRender = now;
     }
 
     private void renderGame(long now){
+        fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         for (IPositionable d : spaceInv.getPositionables()) {
             Image i = Assets.INSTANCE.get(d.getClass());
             fg.drawImage(i, d.getX(), d.getY(), d.getWidth(), d.getHeight());
@@ -190,11 +182,13 @@ public class SpaceInvGUI extends Application {
     }
 
     private void renderEndScreen(){
+        fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         Image i = Assets.INSTANCE.splash;
         fg.drawImage(i, 0, 0, GAME_WIDTH, GAME_HEIGHT);
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(40));
         fg.fillText(String.valueOf("Points: " + spaceInv.getPoints()), 320, 380);
+        stopGame();
     }
 
     private void renderExplosion(double x, double y) {
