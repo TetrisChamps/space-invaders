@@ -10,8 +10,8 @@ import spaceinv.model.statics.Ground;
 // Dropped by the ships
 public class Bomb extends AbstractProjectile {
     // Can be public
-    private static final double BOMB_WIDTH = 10;
-    private static final double BOMB_HEIGHT = 10;
+    public static final double BOMB_WIDTH = 10;
+    public static final double BOMB_HEIGHT = 10;
 
 
     public Bomb(double x, double y, double movementSpeed) {

@@ -38,4 +38,5 @@ public class Gun extends AbstractMovable {
             this.setX(this.getX() + this.getMovementSpeed() * deltaTime);
         }
     }
+
 }

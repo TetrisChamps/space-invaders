@@ -23,8 +23,6 @@ import spaceinv.model.levels.Level0;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.ships.AbstractSpaceShip;
 
-import java.applet.AudioClip;
-
 import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.*;
 
@@ -135,11 +133,11 @@ public class SpaceInvGUI extends Application {
                 break;
             case BOMB_HIT_GROUND:
                 spaceInv.removeBomb((Bomb) evt.data);
-                explostionAtMovable((AbstractMovable) evt.data);
+                explosionAtMovable((AbstractMovable) evt.data);
                 break;
             case ROCKET_HIT_SHIP:
                 spaceInv.shipHit((AbstractSpaceShip) evt.data);
-                explostionAtMovable((AbstractMovable) evt.data);
+                explosionAtMovable((AbstractMovable) evt.data);
                 break;
             case SHIP_HIT_GROUND:
                 EventService.add(new Event(Event.Type.GAME_OVER));
@@ -163,10 +161,12 @@ public class SpaceInvGUI extends Application {
         }
     }
 
-    private void explostionAtMovable(AbstractMovable movable){
+    private void explosionAtMovable(AbstractMovable movable){
         renderExplosion(movable.getX(), movable.getY());
         Assets.INSTANCE.rocketHitShip.play();
     }
+
+
 
     // ************* Rendering and JavaFX below (nothing to do)  *************
     private long lastRender = 0;
@@ -192,13 +192,13 @@ public class SpaceInvGUI extends Application {
     }
 
     private void renderEndScreen(){
+        stopGame();
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         Image i = Assets.INSTANCE.splash;
         fg.drawImage(i, 0, 0, GAME_WIDTH, GAME_HEIGHT);
         fg.setFill(Assets.INSTANCE.colorFgText);
         fg.setFont(Font.font(40));
         fg.fillText(String.valueOf("Points: " + spaceInv.getPoints()), 320, 380);
-        stopGame();
     }
 
     private void renderExplosion(double x, double y) {
@@ -238,9 +238,13 @@ public class SpaceInvGUI extends Application {
             public void handle(long now) {
                 spaceInv.update(now);
                 render(now);
-                Event e = EventService.remove();
-                if (e != null) {
+                while(true){
+                    Event e = EventService.remove();
+                    if (e == null) {
+                        break;
+                    }
                     SpaceInvGUI.this.handleModelEvent(e);
+
                 }
 
             }
