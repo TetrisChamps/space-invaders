@@ -25,6 +25,7 @@ import spaceinv.model.ships.AbstractSpaceShip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static spaceinv.model.AbstractMovable.Direction;
 import static spaceinv.model.SpaceInv.*;
@@ -48,6 +49,8 @@ public class SpaceInvGUI extends Application {
     private boolean showOSD = false;
 
     private List<Explosion> explosions = new ArrayList<>();
+
+    static Random rand = new Random();
 
     // ------- Keyboard handling ----------------------------------
 
@@ -179,7 +182,7 @@ public class SpaceInvGUI extends Application {
 
     private void explosionAtMovable(AbstractMovable movable){
         renderExplosion(movable.getX(), movable.getY());
-        Assets.INSTANCE.rocketHitShip.play();
+        Assets.INSTANCE.rocketHitShip[rand.nextInt(Assets.INSTANCE.rocketHitShip.length)].play();
     }
 
 
