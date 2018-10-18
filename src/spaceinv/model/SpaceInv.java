@@ -1,15 +1,14 @@
 package spaceinv.model;
 
 import spaceinv.model.levels.ILevel;
-import spaceinv.model.projectiles.AbstractProjectile;
 import spaceinv.model.projectiles.Bomb;
 import spaceinv.model.projectiles.Rocket;
 import spaceinv.model.ships.AbstractSpaceShip;
 import spaceinv.model.ships.ShipFormation;
 import spaceinv.model.statics.Ground;
+import spaceinv.view.Explosion;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -45,6 +44,8 @@ public class SpaceInv {
 
     private List<Bomb> bombs;
 
+    private List<Explosion> explosions;
+
     // Timing. All timing handled here!
     private long timeForLastMove;
     private long timeForlastFire;
@@ -56,6 +57,7 @@ public class SpaceInv {
         this.gun = level.getGun();
         this.formation = level.getFormation();
         this.bombs = new ArrayList<>();
+        this.explosions = new ArrayList<>();
     }
 
     // ------ Game loop (called by timer) -----------------
@@ -74,6 +76,9 @@ public class SpaceInv {
         }
         for(Bomb bomb : bombs){
             bomb.update(deltaTime, ground, gun);
+        }
+        for(Explosion explosion : explosions){
+            explosion.update();
         }
         this.gun.update(deltaTime);
         this.formation.update(deltaTime,gun , ground);
@@ -123,6 +128,12 @@ public class SpaceInv {
         bombs.remove(bomb);
     }
 
+    //--------- Explosion --------
+    public void createExplosion(double x, double y){
+        explosions.add(new Explosion(x, y));
+    }
+
+
 
     public boolean checkBoundaries(IPositionable ipos, double X, double Y) {
 
@@ -136,6 +147,9 @@ public class SpaceInv {
         List<IPositionable> ps = new ArrayList<>();
         // TODO Add all to be rendered
 
+        for(Explosion explosion : explosions){
+            ps.add(explosion);
+        }
         ps.add(this.ground);
         for (AbstractSpaceShip ship : formation.getShips()) {
             ps.add(ship);
@@ -143,6 +157,7 @@ public class SpaceInv {
         for(Bomb bomb : bombs){
             ps.add(bomb);
         }
+
         ps.add(this.gun);
         if (rocket != null) {
             ps.add(rocket);

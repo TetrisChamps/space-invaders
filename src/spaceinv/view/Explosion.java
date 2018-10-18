@@ -3,6 +3,9 @@ package spaceinv.view;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import spaceinv.event.Event;
+import spaceinv.event.EventService;
+import spaceinv.model.IPositionable;
 
 /*
      Animation for an explosion
@@ -11,34 +14,56 @@ import javafx.scene.image.Image;
 
      *** Nothing to do here ***
  */
-public class Explosion extends AnimationTimer {
+public class Explosion implements IPositionable {
 
     private static final Image image = Assets.INSTANCE.explosion;
     private double x;
     private double y;
     private double sx = 0;
     private double sy = 0;
+    private double width;
+    private double height;
     private int frameCounter = 0;
     private GraphicsContext gc;
 
-    public void start( double x, double y, GraphicsContext gc){
+    public Explosion(double x, double y){
         this.x = x;
         this.y = y;
-        this.gc = gc;
-        super.start();
+        width = 80;
+        height = 80;
     }
 
-    @Override
-    public void handle(long now) {
-        gc.drawImage(image, sx, sy, 80, 80, x - 20, y - 40, 80, 80);
-        sx = (sx + 80) % 640;
+    public void update() {
+        //gc.drawImage(image, sx, sy, width, height, x - 20, y - 40, width, height);
+
+        sx = (sx + width) % 640;
         if (sx == 0) {
-            sy = (sy + 80) % 480;
+            sy = (sy + height) % 480;
         }
         if (frameCounter > 48) {
-            stop();
+            EventService.add(new Event(Event.Type.EXPLOSION_EXPLODED));
             return;
         }
         frameCounter++;
+    }
+
+    @Override
+    public double getX() {
+        return x;
+    }
+
+    @Override
+    public double getY() {
+        return y;
+    }
+
+    @Override
+    public double getWidth() {
+        return width;
+    }
+
+    @Override
+    public double getHeight() {
+        return height;
     }
 }

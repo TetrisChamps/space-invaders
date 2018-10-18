@@ -156,6 +156,8 @@ public class SpaceInvGUI extends Application {
             case BOMB_DROPPED:
                 spaceInv.dropBomb((Bomb) evt.data);
                 break;
+            case EXPLOSION_EXPLODED:
+                break;
             case EXCEPTION:
                 break;
         }
@@ -202,7 +204,7 @@ public class SpaceInvGUI extends Application {
     }
 
     private void renderExplosion(double x, double y) {
-        new Explosion().start(x, y, fg);
+        //new Explosion().start(x, y, fg);
     }
 
     private void renderBackground() {
