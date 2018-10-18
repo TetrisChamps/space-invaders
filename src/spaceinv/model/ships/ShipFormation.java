@@ -27,6 +27,9 @@ public class ShipFormation {
 
     public int destroyShip(AbstractSpaceShip ship) {
         ships.remove(ship);
+        if(ships.isEmpty()){
+            EventService.add(new Event(Event.Type.GAME_OVER));
+        }
         return ship.getPoints();
     }
     // TODO destroy a ship return a score
