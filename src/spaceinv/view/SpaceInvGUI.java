@@ -102,7 +102,11 @@ public class SpaceInvGUI extends Application {
                 System.exit(0);
                 break;
             case "Play":
-                toggleMusic();
+                
+                Assets.INSTANCE.backgroundMusic.play();
+                break;
+            case "No Play":
+                Assets.INSTANCE.backgroundMusic.stop();
                 break;
             default: // Nothing
         }
@@ -250,6 +254,7 @@ public class SpaceInvGUI extends Application {
 
         Pane pane = new Pane(backGround, foreGround);
         root.setCenter(pane);
+        Assets.INSTANCE.backgroundMusic.play();
 
         timer = new AnimationTimer() {
             @Override
