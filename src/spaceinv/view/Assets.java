@@ -26,7 +26,7 @@ import java.util.Map;
 public enum Assets {
     INSTANCE;           // Only one object
 
-    private final String IMAGE_DIR = "file:assets/img/";
+    private String IMAGE_DIR = "file:assets/img/Normal/";
     private final String SOUND_DIR = "file:assets/sound/";
 
     private Map<Object, Image> objectImage = new HashMap<>();
@@ -34,36 +34,28 @@ public enum Assets {
 
 
     public void smurfMode() {
-        Map<Object, Image> smurfsObjectImage = new HashMap<>();
-
-        bind(BattleCruiser.class, getImage("battlecruiser.png"), smurfsObjectImage);
-        bind(Bomber.class, getImage("bomber.png"), smurfsObjectImage);
-        bind(Frigate.class, getImage("frigate.png"), smurfsObjectImage);
-        bind(Bomb.class, getImage("bomb.png"), smurfsObjectImage);
-        bind(Rocket.class, getImage("rocket.png"), smurfsObjectImage);
-        bind(Gun.class, getImage("cannon.png"), smurfsObjectImage);
-        bind(Ground.class, getImage("ground.png"), smurfsObjectImage);
-
-        this.objectImage = smurfsObjectImage;
-        background = getImage("smurfsBackground.png");
-        splash = getImage("smurfSplash.png");
-        explosion = getImage("explosion.png");
+        IMAGE_DIR = "file:assets/img/Smurfs/";
+        bindSprites();
     }
 
     public void normalMode() {
+        IMAGE_DIR = "file:assets/img/Normal/";
+        bindSprites();
+    }
+    public void bindSprites() {
 
-        Map<Object, Image> normalObjectImage = new HashMap<>();
+        Map<Object, Image> newObjectImage = new HashMap<>();
 
-        bind(BattleCruiser.class, getImage("battlecruiser.png"), normalObjectImage);
-        bind(Bomber.class, getImage("bomber.png"), normalObjectImage);
-        bind(Frigate.class, getImage("frigate.png"), normalObjectImage);
-        bind(Bomb.class, getImage("bomb.png"), normalObjectImage);
-        bind(Rocket.class, getImage("rocket.png"), normalObjectImage);
-        bind(Gun.class, getImage("cannon.png"), normalObjectImage);
-        bind(Ground.class, getImage("ground.png"), normalObjectImage);
+        bind(BattleCruiser.class, getImage("battlecruiser.png"), newObjectImage);
+        bind(Bomber.class, getImage("bomber.png"), newObjectImage);
+        bind(Frigate.class, getImage("frigate.png"), newObjectImage);
+        bind(Bomb.class, getImage("bomb.png"), newObjectImage);
+        bind(Rocket.class, getImage("rocket.png"), newObjectImage);
+        bind(Gun.class, getImage("cannon.png"), newObjectImage);
+        bind(Ground.class, getImage("ground.png"), newObjectImage);
 
-        this.objectImage = normalObjectImage;
-        background = getImage("spaceBackground.png");
+        this.objectImage = newObjectImage;
+        background = getImage("Background.png");
         splash = getImage("splash.jpg");
         explosion = getImage("explosion.png");
 

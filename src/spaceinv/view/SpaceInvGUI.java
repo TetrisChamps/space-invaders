@@ -47,6 +47,7 @@ public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // Reference to the OO model
     private boolean running = false;    // Is game running?
     private boolean showOSD = false;
+    private boolean smurfs = false;
 
     private List<Explosion> explosions = new ArrayList<>();
 
@@ -55,6 +56,20 @@ public class SpaceInvGUI extends Application {
     // ------- Keyboard handling ----------------------------------
 
     private void keyPressed(KeyEvent event) {
+        if(event.getCode().equals(KeyCode.S)){
+            if(!smurfs){
+                Assets.INSTANCE.smurfMode();
+                renderBackground();
+                System.out.println("Normal");
+                smurfs = true;
+            }
+            else{
+                Assets.INSTANCE.normalMode();
+                renderBackground();
+                System.out.println("Smurfs");
+                smurfs = false;
+            }
+        }
         if (!running) {
             return;
         }
@@ -245,6 +260,9 @@ public class SpaceInvGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        Assets.INSTANCE.normalMode();
+
 
         BorderPane root = new BorderPane();
 
